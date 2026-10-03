@@ -175,6 +175,7 @@ Keep a short log: date, session, the numbers above, and one line on what broke d
 
 1. In `drills.py`, write `PHASE2_A` and `PHASE2_B` dicts like `PHASE1_A`, reusing the helper functions (`drives`, `ghost`, `warmup` and the rest) where they fit, and append them to `SESSIONS`.
 2. Run `.venv/bin/python build.py phase2-a phase2-b`. With no arguments, it builds every session.
+   Each session produces `out/<id>.mp3` with its `.srt` subtitles, `.txt` schedule, `.ffmeta` chapters and `.jpg` cover.
 3. The build aborts if cues overlap. Shorten the text or move the offsets.
 
 `HANDOFF.md` covers the technical details of the audio pipeline.

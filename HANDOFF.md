@@ -19,6 +19,7 @@ Both are CBR 64k with chapters and cover art. Next to each MP3 in `out/`:
 - `<id>.txt`: the announce and start time of each drill.
 - `<id>.ffmeta`: the chapter definitions.
 - `<id>.jpg`: the cover.
+- `<id>.srt`: subtitles of everything spoken, one cue per sentence. Every session build must produce one.
 
 Phases 2 and 3 are designed in `PROGRAMME.md` but not built. The user moves on once they pass the Phase 1 mastery test.
 
@@ -40,7 +41,7 @@ Phases 2 and 3 are designed in `PROGRAMME.md` but not built. The user moves on o
   - `ghost()` generates position calls with a fixed random seed from `PACES` (travel timing) and `ROUNDS` (work and rest).
 - **`build.py`:** synthesises speech, builds the timeline, mixes, and encodes. `build.py [session-id ...]` builds the named sessions, or all of them with no arguments.
 - **`cover.py`:** `make(subtitle, footer, path)` draws a 1400×1400 cover. The build calls it for every session. It uses macOS Arial, falling back to DejaVu on Linux.
-- **`cache/`:** edge-tts clips as `.mp3`, keyed by SHA1 of `voice|rate|text`. Changing the voice, rate or text resynthesises only what changed.
+- **`cache/`:** edge-tts clips as `.mp3`, keyed by SHA1 of `voice|rate|text`, each with a `.json` of edge-tts sentence timings (start, end, text) used for the subtitles. A clip missing its `.json` is resynthesised. Changing the voice, rate or text resynthesises only what changed.
 - **Environment:** `.venv` (`python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`; `uv` isn't installed). Also needs system `ffmpeg` with libmp3lame.
 - Git repo. `.gitignore` excludes `.venv`, `cache`, `out` and `__pycache__`.
 
@@ -54,7 +55,8 @@ Build:
 ## How the build works
 
 - The timeline is in seconds, mixed with numpy at 24 kHz mono float32, then piped to ffmpeg as f32le.
-- edge-tts clips are trimmed on load. edge-tts pads about 0.25 s before the speech and 0.9 s after, which would make short calls late and longer than they sound.
+- edge-tts clips are trimmed on load. edge-tts pads about 0.25 s before the speech and 0.9 s after, which would make short calls late and longer than they sound. Sentence timings are shifted by the trimmed lead.
+- Subtitles: each spoken event's sentence timings are offset to its place on the timeline. Each cue ends no later than the next one starts, because edge-tts sentence durations can overlap the next sentence by about 50 ms.
 - Per drill:
   - Stop tone at the previous block's end.
   - Announcement 1.5 s later: name, duration, intro.

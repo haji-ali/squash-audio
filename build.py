@@ -1,5 +1,6 @@
 import asyncio
 import hashlib
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -25,21 +26,34 @@ def clip_path(text):
     return CACHE / f"{h}.mp3"
 
 
+def timing_path(text):
+    return clip_path(text).with_suffix(".json")
+
+
 async def synth_all(texts):
     CACHE.mkdir(exist_ok=True)
     sem = asyncio.Semaphore(4)
 
     async def one(text):
-        path = clip_path(text)
-        if path.exists():
+        path, timing = clip_path(text), timing_path(text)
+        if path.exists() and timing.exists():
             return
         async with sem:
-            await edge_tts.Communicate(text, VOICE, rate=RATE).save(str(path))
+            audio, sentences = bytearray(), []
+            async for chunk in edge_tts.Communicate(text, VOICE, rate=RATE).stream():
+                if chunk["type"] == "audio":
+                    audio += chunk["data"]
+                elif chunk["type"] == "SentenceBoundary":
+                    start = chunk["offset"] / 1e7  # 100 ns ticks
+                    sentences.append([start, start + chunk["duration"] / 1e7, chunk["text"]])
+            path.write_bytes(audio)
+            timing.write_text(json.dumps(sentences))
 
     await asyncio.gather(*(one(t) for t in dict.fromkeys(texts)))
 
 
 def load(text):
+    """Trimmed samples, plus (start, end, sentence) timings relative to the trimmed clip."""
     raw = subprocess.run(
         ["ffmpeg", "-v", "error", "-i", str(clip_path(text)),
          "-f", "s16le", "-ac", "1", "-ar", str(SR), "-"],
@@ -47,7 +61,10 @@ def load(text):
     y = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768
     # edge-tts pads clips with ~0.25 s of leading and ~0.9 s of trailing silence.
     loud = np.nonzero(np.abs(y) > 0.01)[0]
-    return y[max(loud[0] - int(SR * 0.02), 0):loud[-1] + int(SR * 0.1)]
+    lo, hi = max(loud[0] - int(SR * 0.02), 0), loud[-1] + int(SR * 0.1)
+    dur, lead = (hi - lo) / SR, lo / SR
+    sentences = [(max(a - lead, 0), min(b - lead, dur), t) for a, b, t in json.loads(timing_path(text).read_text())]
+    return y[lo:hi], sentences or [(0, dur, text)]
 
 
 def tone(freq, dur, amp=0.3):
@@ -78,6 +95,14 @@ def ffmetadata(starts, total):
         lines += ["[CHAPTER]", "TIMEBASE=1/1000", f"START={int(start * 1000)}",
                   f"END={int(end * 1000) - 1}", f"title={esc(title)}"]
     return "\n".join(lines) + "\n"
+
+
+def srt(lines):
+    stamp = lambda t: f"{int(t // 3600):02d}:{int(t % 3600 // 60):02d}:{int(t % 60):02d},{int(t % 1 * 1000):03d}"
+    lines = sorted(lines)
+    ends = [min(b, nxt[0]) for (_, b, _), nxt in zip(lines, lines[1:] + [(float("inf"),)])]
+    return "\n".join(f"{i}\n{stamp(a)} --> {stamp(b)}\n{text}\n"
+                     for i, ((a, _, text), b) in enumerate(zip(lines, ends), 1))
 
 
 def fmt(t):
@@ -118,34 +143,35 @@ def session_texts(session):
 def build(session):
     drills = session["drills"]
     texts = session_texts(session)
-    clips = {t: load(t) for t in dict.fromkeys(texts)}
+    loaded = {t: load(t) for t in dict.fromkeys(texts)}
+    clips = {t: samples for t, (samples, _) in loaded.items()}
     clip = lambda item: TONES.get(item, clips.get(item))
     dur_of = lambda item: len(clip(item)) / SR
 
-    events = []  # (start, samples, is_speech)
+    events = []  # (start, samples, text or None for tones)
     schedule = []
     chapter_starts = [(0.0, "Intro")]
     problems = []
 
     t = 0.5
-    events.append((t, clips[session["intro"]], True))
+    events.append((t, clips[session["intro"]], session["intro"]))
     t += dur_of(session["intro"]) + 1.0
 
     for i, drill in enumerate(drills):
         ann = announcement(drill)
         if i > 0:
-            events.append((t, STOP, False))
+            events.append((t, STOP, None))
             ann_start = t + 1.5
             min_end = t + 12
         else:
             ann_start = t
             min_end = t + 8
-        events.append((ann_start, clips[ann], True))
+        events.append((ann_start, clips[ann], ann))
         chapter_starts.append((ann_start - LEAD_IN, f"{i + 1}. {drill['name']} ({drill['secs'] // 60} min)"))
         start = max(ann_start + dur_of(ann) + 4.0, min_end)
         for k in (3, 2, 1):
-            events.append((start - k, TICK_TONE, False))
-        events.append((start, START, False))
+            events.append((start - k, TICK_TONE, None))
+        events.append((start, START, None))
 
         timed = [(start + off, item) for off, item in drill_cues(drill)]
         for (a, ia), (b, ib) in zip(timed, timed[1:]):
@@ -155,7 +181,7 @@ def build(session):
         end = start + drill["secs"]
         if timed and timed[-1][0] + dur_of(timed[-1][1]) > end:
             problems.append(f"drill {i + 1} '{drill['name']}': last cue runs past the end")
-        events += [(a, clip(item), item not in TONES) for a, item in timed]
+        events += [(a, clip(item), None if item in TONES else item) for a, item in timed]
         schedule.append(f"{fmt(ann_start)}  announce  {i + 1:2d}. {drill['name']} ({drill['secs'] // 60} min)\n"
                         f"{fmt(start)}  start     (transition {start - t:.0f}s)")
         t = end
@@ -163,9 +189,9 @@ def build(session):
     if problems:
         sys.exit(f"{session['id']}:\n" + "\n".join(problems))
 
-    events.append((t, STOP, False))
+    events.append((t, STOP, None))
     chapter_starts.append((t + 2.0 - LEAD_IN, "Finish"))
-    events.append((t + 2.0, clips[session["outro"]], True))
+    events.append((t + 2.0, clips[session["outro"]], session["outro"]))
     total = t + 2.0 + dur_of(session["outro"]) + 1.0
     schedule.append(f"{fmt(t)}  finished  total {fmt(total)}")
 
@@ -173,7 +199,7 @@ def build(session):
     for at, samples, _ in events:
         s = int(at * SR)
         buf[s:s + len(samples)] += samples
-    speech = np.concatenate([samples for _, samples, is_speech in events if is_speech])
+    speech = np.concatenate([samples for _, samples, text in events if text])
     buf *= SPEECH_RMS / np.sqrt(np.mean(speech ** 2))
 
     OUT.mkdir(exist_ok=True)
@@ -194,6 +220,8 @@ def build(session):
          str(path)],
         input=buf.astype(np.float32).tobytes(), check=True)
     (OUT / f"{name}.txt").write_text("\n".join(schedule) + "\n")
+    subtitles = [(at + a, at + b, sentence) for at, _, text in events if text for a, b, sentence in loaded[text][1]]
+    (OUT / f"{name}.srt").write_text(srt(subtitles))
     print(f"== {name}\n" + "\n".join(schedule) + f"\nwrote {path}\n")
 
 
