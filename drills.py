@@ -12,13 +12,16 @@ FRONT = ALL[0:2]
 MIDDLE = ALL[2:4]
 BACK = ALL[4:6]
 
-# Seconds from the start of a call to the arrival beep, then from the beep to the next call.
-#          arrive (corner, middle)  return (corner, middle)
+# Spoken length of a position call; build.py aborts if a call clip runs longer.
+CALL_SECS = 0.85
+
+# Seconds from the end of a call to the arrival beep, then from the beep to the next call.
+# Front is the longest run; back is shorter but needs a turn; middle is one or two steps.
 PACES = {
-    "easy":   ((1.8, 1.8), (2.2, 2.2)),
-    "slow":   ((3.2, 2.4), (3.8, 3.0)),
-    "medium": ((2.6, 2.0), (3.0, 2.4)),
-    "fast":   ((2.1, 1.7), (2.3, 1.8)),
+    "easy":   {"front": (1.0, 2.2), "middle": (1.0, 2.2), "back": (1.0, 2.2)},
+    "slow":   {"front": (2.6, 3.0), "middle": (1.6, 2.2), "back": (2.4, 2.8)},
+    "medium": {"front": (2.1, 2.4), "middle": (1.3, 1.7), "back": (1.9, 2.2)},
+    "fast":   {"front": (1.7, 2.0), "middle": (1.0, 1.4), "back": (1.5, 1.8)},
 }
 # rounds, work seconds, rest seconds; each fits a three-minute block.
 ROUNDS = {"slow": (3, 45, 20), "medium": (3, 40, 25), "fast": (4, 25, 25)}
@@ -31,7 +34,6 @@ def d(name, secs, intro, *cues, ten=True):
 
 def calls(positions, pace, start, end, rng):
     """Position calls with arrival beeps between start and end. Returns (cues, time back at the T)."""
-    (arr_c, arr_m), (ret_c, ret_m) = PACES[pace]
     cues, t, prev = [], start, []
     while True:
         if len(positions) > 2:
@@ -39,8 +41,8 @@ def calls(positions, pace, start, end, rng):
         else:
             options = [p for p in positions if prev[-2:] != [p, p]]
         pos = rng.choice(options)
-        mid = pos.startswith("Middle")
-        arrive, back = (arr_m, ret_m) if mid else (arr_c, ret_c)
+        to, back = PACES[pace][pos.split()[0].lower()]
+        arrive = CALL_SECS + to
         if t + arrive + back > end:
             return cues, t
         cues += [(t, pos), (t + arrive, ARRIVE)]

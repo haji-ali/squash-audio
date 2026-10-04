@@ -38,7 +38,7 @@ Phases 2 and 3 are designed in `PROGRAMME.md` but not built. The user moves on o
   - Each drill is `d(name, secs, intro, *cues, ten=True)`. Cues are `(offset_seconds_from_start, item)`, where `item` is spoken text or a tone marker (`ARRIVE`, `TICK`).
   - `ten=True` adds a "Ten seconds." cue automatically.
   - Helpers: `warmup`, `ghost`, `drives`, `feed_and_step` and others build repeated drill shapes.
-  - `ghost()` generates position calls with a fixed random seed from `PACES` (travel timing) and `ROUNDS` (work and rest).
+  - `ghost()` generates position calls with a fixed random seed from `PACES` (time after each call to the pip and back, per front, middle and back) and `ROUNDS` (work and rest).
 - **`build.py`:** synthesises speech, builds the timeline, mixes, and encodes. `build.py [session-id ...]` builds the named sessions, or all of them with no arguments.
 - **`cover.py`:** `make(subtitle, footer, path)` draws a 1400×1400 cover. The build calls it for every session. It uses macOS Arial, falling back to DejaVu on Linux.
 - **`cache/`:** edge-tts clips as `.mp3`, keyed by SHA1 of `voice|rate|text`, each with a `.json` of edge-tts sentence timings (start, end, text) used for the subtitles. A clip missing its `.json` is resynthesised. Changing the voice, rate or text resynthesises only what changed.

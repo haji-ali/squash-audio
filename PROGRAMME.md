@@ -45,14 +45,30 @@ Longer-term goals:
   3. The next call comes when you should be back at the T, so split step on every call.
 - **Rounds:** each ghosting block is three minutes, in rounds with spoken rest and one technique tip. Three countdown ticks restart each round.
 
-| Pace | Call → pip (corner / middle) | Pip → next call (corner / middle) | Rounds |
-|---|---|---|---|
-| easy (warm-up, two steps only) | 1.8 / 1.8 s | 2.2 / 2.2 s | continuous |
-| slow | 3.2 / 2.4 s | 3.8 / 3.0 s | 3 × 45 s, 20 s rest |
-| medium | 2.6 / 2.0 s | 3.0 / 2.4 s | 3 × 40 s, 25 s rest |
-| fast | 2.1 / 1.7 s | 2.3 / 1.8 s | 4 × 25 s, 25 s rest |
+Times are in seconds from the **end** of the call, which takes about 0.85 s to say. Each cell is end of call → pip, then pip → next call.
 
-To tune these, edit `PACES` and `ROUNDS` in `drills.py`. Later phases may add a faster `"match"` pace.
+| Pace | Front | Back | Middle | Rounds |
+|---|---|---|---|---|
+| easy (warm-up, two steps only) | 1.0, 2.2 | 1.0, 2.2 | 1.0, 2.2 | continuous |
+| slow | 2.6, 3.0 | 2.4, 2.8 | 1.6, 2.2 | 3 × 45 s, 20 s rest |
+| medium | 2.1, 2.4 | 1.9, 2.2 | 1.3, 1.7 | 3 × 40 s, 25 s rest |
+| fast | 1.7, 2.0 | 1.5, 1.8 | 1.0, 1.4 | 4 × 25 s, 25 s rest |
+
+- **Front** is the longest run, about 3.5–4 m after the lunge and reach. It also has the hardest push back to the T.
+- **Back** is shorter, about 2.5–3 m, but you have to turn and get beside the ball via the box corner.
+- **Middle** is one or two steps.
+- The return includes the swing, the push-off and the split step, so it's longer than the outbound move.
+- Full rep, call to next call:
+
+| Pace | Front | Back | Middle |
+|---|---|---|---|
+| slow | 6.45 s | 6.05 s | 4.65 s |
+| medium | 5.35 s | 4.95 s | 3.85 s |
+| fast | 4.55 s | 4.15 s | 3.25 s |
+
+These are estimates. To calibrate, time five comfortable match-pace reps to each of front, back and middle. Set `medium` to the average, `slow` about 25% slower, and `fast` about 15% faster.
+
+To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phases may add a faster `"match"` pace.
 
 **Ghosting footwork (from coaching):**
 - Back corners: go via the service-box corner. Plant at 45°: left then right foot in the right corner, right then left foot in the left corner.
