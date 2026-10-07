@@ -45,7 +45,7 @@ Longer-term goals:
   3. The next call comes when you should be back at the T, so split step on every call.
 - **Rounds:** each ghosting block is three minutes, in rounds with spoken rest and one technique tip. Three countdown ticks restart each round.
 
-Times are in seconds from the **end** of the call, which takes about 0.85 s to say. Each cell is end of call → pip, then pip → next call.
+Times are in seconds from the **end** of the call, which takes about 0.8 s to say. Each cell is end of call → pip, then pip → next call.
 
 | Pace | Front | Back | Middle | Rounds |
 |---|---|---|---|---|
@@ -62,9 +62,9 @@ Times are in seconds from the **end** of the call, which takes about 0.85 s to s
 
 | Pace | Front | Back | Middle |
 |---|---|---|---|
-| slow | 6.45 s | 6.05 s | 4.65 s |
-| medium | 5.35 s | 4.95 s | 3.85 s |
-| fast | 4.55 s | 4.15 s | 3.25 s |
+| slow | 6.4 s | 6.0 s | 4.6 s |
+| medium | 5.3 s | 4.9 s | 3.8 s |
+| fast | 4.5 s | 4.1 s | 3.2 s |
 
 These are estimates. To calibrate, time five comfortable match-pace reps to each of front, back and middle. Set `medium` to the average, `slow` about 25% slower, and `fast` about 15% faster.
 
@@ -79,8 +79,8 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 ## Phase 1: Foundation (built)
 
 **Files:**
-- `out/phase1-a.mp3`: Drive & Move, about 43 min.
-- `out/phase1-b.mp3`: Volley & Front Court, about 45 min.
+- `out/phase1-a.mp3`: Drive & Move, about 40 min.
+- `out/phase1-b.mp3`: Volley & Front Court, about 43 min.
 
 ### Session A: Drive & Move
 

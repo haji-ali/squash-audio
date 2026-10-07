@@ -12,8 +12,8 @@ Generate guided audio files for solo squash practice. Each file announces a dril
 ## Current state
 
 Phase 1 is built:
-- `out/phase1-a.mp3`: Drive & Move, 14 drills, about 43 min.
-- `out/phase1-b.mp3`: Volley & Front Court, 16 drills, about 45 min.
+- `out/phase1-a.mp3`: Drive & Move, 14 drills, about 40 min.
+- `out/phase1-b.mp3`: Volley & Front Court, 16 drills, about 43 min.
 
 Both are CBR 64k with chapters and cover art. Next to each MP3 in `out/`:
 - `<id>.txt`: the announce and start time of each drill.
@@ -27,7 +27,7 @@ Phases 2 and 3 are designed in `PROGRAMME.md` but not built. The user moves on o
 
 ## Speech engine
 
-- edge-tts, voice `en-GB-RyanNeural`.
+- edge-tts, voice `en-GB-RyanNeural` at `+10%` rate.
 - Kokoro was tried and rejected (sounded worse). Perplexity has no TTS endpoint.
 - A music-bed version was dropped at the user's request. Don't bring it back.
 
@@ -59,8 +59,8 @@ Build:
 - Subtitles: each spoken event's sentence timings are offset to its place on the timeline. Each cue ends no later than the next one starts, because edge-tts sentence durations can overlap the next sentence by about 50 ms.
 - Per drill:
   - Stop tone at the previous block's end.
-  - Announcement 1.5 s later: name, duration, intro.
-  - Start time = announcement end + 4 s, with a minimum transition of 12 s (8 s for the first drill).
+  - Announcement 1 s later: one flowing line, "<name>, <duration>. <where to stand and what to hit>". Keep them flowing, without filler, round counts or anything the audio already signals. Always keep the setup details (where to stand, where the ball should land, foot position): they tell the user what a good rep looks like. Ghosting announcements end with "swing on the beep, and get back to the T for the next call". The user can add rest between chapters in their app.
+  - Start time = announcement end + 3.5 s, with a minimum transition of 8 s (6 s for the first drill).
   - Three tick beeps at -3, -2 and -1 s, then the start tone.
   - Cues at their offsets.
 - Tones:
@@ -86,5 +86,5 @@ Build:
 
 ## Open items
 
-- The user should try Phase 1 on court. Ghosting pace (`PACES`) and announcement length are the likeliest things to tune. Transitions are 18 to 28 s because the announcements describe the setup in full.
+- The user should try Phase 1 on court. Ghosting pace (`PACES`) is the likeliest thing to tune. Transitions are 9 to 19 s.
 - Build Phase 2 once the user reports passing the Phase 1 mastery test. Use their log of what broke down to adjust the Phase 2 drills.

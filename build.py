@@ -122,7 +122,7 @@ def duration_words(secs):
 
 
 def announcement(drill):
-    return f"{drill['name']}. {duration_words(drill['secs'])}. {drill['intro']}"
+    return f"{drill['name'].replace(':', ',')}, {duration_words(drill['secs']).lower()}. {drill['intro']}"
 
 
 def drill_cues(drill):
@@ -164,14 +164,14 @@ def build(session):
         ann = announcement(drill)
         if i > 0:
             events.append((t, STOP, None))
-            ann_start = t + 1.5
-            min_end = t + 12
+            ann_start = t + 1.0
+            min_end = t + 8
         else:
             ann_start = t
-            min_end = t + 8
+            min_end = t + 6
         events.append((ann_start, clips[ann], ann))
         chapter_starts.append((ann_start - LEAD_IN, f"{i + 1}. {drill['name']} ({drill['secs'] // 60} min)"))
-        start = max(ann_start + dur_of(ann) + 4.0, min_end)
+        start = max(ann_start + dur_of(ann) + 3.5, min_end)
         for k in (3, 2, 1):
             events.append((start - k, TICK_TONE, None))
         events.append((start, START, None))
