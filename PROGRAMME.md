@@ -50,9 +50,9 @@ Times are in seconds from the **end** of the call, which takes about 0.8 s to sa
 | Pace | Front | Back | Middle | Rounds |
 |---|---|---|---|---|
 | easy (warm-up, two steps only) | 1.0, 2.2 | 1.0, 2.2 | 1.0, 2.2 | continuous |
-| slow | 2.6, 3.0 | 2.4, 2.8 | 1.6, 2.2 | 3 × 45 s, 20 s rest |
-| medium | 2.1, 2.4 | 1.9, 2.2 | 1.3, 1.7 | 3 × 40 s, 25 s rest |
-| fast | 1.7, 2.0 | 1.5, 1.8 | 1.0, 1.4 | 4 × 25 s, 25 s rest |
+| slow | 2.6, 3.0 | 2.4, 2.8 | 1.6, 2.2 | 3 × 49 s, 15 s rest |
+| medium | 2.1, 2.4 | 1.9, 2.2 | 1.3, 1.7 | 3 × 46 s, 15 s rest |
+| fast | 1.7, 2.0 | 1.5, 1.8 | 1.0, 1.4 | 4 × 32 s, 15 s rest |
 
 - **Front** is the longest run, about 3.5–4 m after the lunge and reach. It also has the hardest push back to the T.
 - **Back** is shorter, about 2.5–3 m, but you have to turn and get beside the ball via the box corner.
@@ -79,40 +79,43 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 ## Phase 1: Foundation (built)
 
 **Files:**
-- `out/phase1-a.mp3`: Drive & Move, about 40 min.
-- `out/phase1-b.mp3`: Volley & Front Court, about 43 min.
+- `out/phase1-a.mp3`: Drive & Move, about 49 min.
+- `out/phase1-b.mp3`: Volley & Front Court, about 48 min.
 
 ### Session A: Drive & Move
 
 | # | Drill | Min | What |
 |---|---|---|---|
-| 1 | Movement warm-up | 3 | 1 min free movement, then called split steps (easy pace, two steps) |
+| 1 | Movement warm-up | 4 | 2 min of called moves (jog, side-steps, lunges, hips, high knees, arm circles), then called split steps (easy pace, two steps) |
 | 2 | Side-to-side warm-up | 3 | From the middle in front of the short line, cross court FH ↔ BH with a bounce |
 | 3–4 | FH / BH straight drives | 3 + 3 | A racket length off the wall, behind the short line. Medium pace, bouncing at the back of the box. Prep and finish cues |
 | 5 | Ghosting: back corners | 3 | slow |
 | 6–7 | FH / BH feed and step in | 3 + 3 | Soft high feed lands near the short line. Get behind it, stomp, deep drive. Collect and repeat |
-| 8 | Ghosting: front corners | 3 | medium, closed lunge |
-| 9–10 | FH / BH drive and recover | 2 + 2 | Higher, softer drives, two steps toward the T and back |
-| 11–12 | FH / BH three-shot sequence | 2 + 2 | Soft (service box), medium (behind the box), hard and low (under the service line, off the back wall). Same prep for all |
-| 13 | Ghosting: six points | 3 | fast |
-| 14 | Cool-down | 2 | Easy side-to-side, then stretch |
+| 8 | Front-court drives | 3 | Step in front of the short line: straight drives to length with exaggerated rotation, going around the ball. Switch to the backhand halfway |
+| 9 | Ghosting: front corners | 3 | medium, closed lunge |
+| 10–11 | FH / BH drive and recover | 2 + 2 | Higher, softer drives, two steps toward the T and back |
+| 12 | Ghosting: middle and back | 3 | medium |
+| 13–14 | FH / BH three-shot sequence | 2 + 2 | Soft (service box), medium (behind the box), hard and low (under the service line, off the back wall). Same prep for all |
+| 15 | Ghosting: six points | 3 | fast |
+| 16 | Cool-down | 3 | Easy side-to-side, then called stretches: calves, hips, shoulders, each side |
 
 ### Session B: Volley & Front Court
 
 | # | Drill | Min | What |
 |---|---|---|---|
-| 1 | Movement warm-up | 3 | As in A |
+| 1 | Movement warm-up | 4 | As in A |
 | 2 | Side-to-side warm-up | 3 | As in A |
 | 3–4 | FH / BH short volleys | 2 + 2 | One step in front of the short line, near the wall, aiming just above the service line |
 | 5 | Ghosting: volley positions | 3 | slow, middle left and right |
 | 6 | Forehand to backhand volleys | 3 | Middle, about 2 m from the front wall. First half with a bounce, second half on the volley |
 | 7–8 | FH / BH box volleys | 2 + 2 | Back of the service box, medium pace, ball returns at shoulder height. Racket above the ball |
-| 9 | Ghosting: front corners with drops | 3 | medium, shadow drops |
-| 10–11 | FH / BH drops | 2 + 2 | In front of the short line: drop, bounce, drop, just above the tin |
-| 12 | Serve then T | 3 | Serve, move to the T and split step as if volleying the return. Switch boxes halfway |
-| 13–14 | FH / BH length check | 2 + 2 | Count straight drives in a row landing behind the short line |
-| 15 | Ghosting: six points | 3 | fast |
-| 16 | Cool-down | 2 | As in A |
+| 9 | Volley heights | 3 | Step in front of the short line, near the wall: straight volleys just above the service line, on it, just above the tin. Switch to the backhand halfway |
+| 10 | Ghosting: front corners with drops | 3 | medium, shadow drops |
+| 11–12 | FH / BH drops | 2 + 2 | In front of the short line: drop, bounce, drop, just above the tin |
+| 13 | Serve then T | 3 | Serve, move to the T and split step as if volleying the return. Switch boxes halfway |
+| 14–15 | FH / BH length check | 2 + 2 | Count straight drives in a row landing behind the short line |
+| 16 | Ghosting: six points | 3 | fast |
+| 17 | Cool-down | 3 | As in A |
 
 ### Phase 1 mastery test
 

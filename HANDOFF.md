@@ -12,8 +12,8 @@ Generate guided audio files for solo squash practice. Each file announces a dril
 ## Current state
 
 Phase 1 is built:
-- `out/phase1-a.mp3`: Drive & Move, 14 drills, about 40 min.
-- `out/phase1-b.mp3`: Volley & Front Court, 16 drills, about 43 min.
+- `out/phase1-a.mp3`: Drive & Move, 16 drills, about 49 min.
+- `out/phase1-b.mp3`: Volley & Front Court, 17 drills, about 48 min.
 
 Both are CBR 64k with chapters and cover art. Next to each MP3 in `out/`:
 - `<id>.txt`: the announce and start time of each drill.

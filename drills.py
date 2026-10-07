@@ -24,7 +24,7 @@ PACES = {
     "fast":   {"front": (1.7, 2.0), "middle": (1.0, 1.4), "back": (1.5, 1.8)},
 }
 # rounds, work seconds, rest seconds; each fits a three-minute block.
-ROUNDS = {"slow": (3, 45, 20), "medium": (3, 40, 25), "fast": (4, 25, 25)}
+ROUNDS = {"slow": (3, 49, 15), "medium": (3, 46, 15), "fast": (4, 32, 15)}
 GHOST_SECS = 180
 
 
@@ -51,11 +51,16 @@ def calls(positions, pace, start, end, rng):
 
 
 def warmup(seed):
-    cues, _ = calls(ALL, "easy", 64, 176, random.Random(seed))
-    return d("Movement warm-up", 180,
-             "One minute of jogging, side-steps and lunges, then split step at the T and take two steps toward each call.",
-             (40, "Open and close the hips."),
-             (60, "Back to the T. Split steps now."),
+    cues, _ = calls(ALL, "easy", 124, 236, random.Random(seed))
+    return d("Movement warm-up", 240,
+             "Two minutes of moves as I call them, then split step at the T and take two steps toward each call.",
+             (1, "Jog round the court."),
+             (20, "Side-steps."),
+             (40, "Lunges, alternating legs."),
+             (60, "Open and close the hips."),
+             (80, "High knees."),
+             (100, "Arm circles, both directions."),
+             (120, "Back to the T. Split steps now."),
              *cues, ten=False)
 
 
@@ -84,10 +89,15 @@ SIDE_TO_SIDE = d(
     (140, "Finish each swing toward the front wall."))
 
 COOL_DOWN = d(
-    "Cool-down", 120,
-    "Easy side-to-side, then stretch.",
-    (15, "Nice and easy. Breathe out."),
-    (60, "Put the ball down. Stretch calves, hips and shoulders."),
+    "Cool-down", 180,
+    "Easy side-to-side, then the stretches as I call them.",
+    (5, "Nice and easy. Breathe out."),
+    (45, "Ball down. Calf stretch, left leg back."),
+    (67, "Switch legs."),
+    (90, "Hip stretch. Long lunge, left leg back."),
+    (112, "Switch legs."),
+    (135, "Shoulder stretch. Left arm across."),
+    (157, "Switch arms."),
     ten=False)
 
 FAST_SIX = dict(
@@ -188,12 +198,23 @@ PHASE1_A = dict(
               ("Plant at forty-five degrees. Full swish.", "Fast back to the T. Split step."), seed=12),
         feed_and_step("forehand", "Stomp, and let your weight go forward."),
         feed_and_step("backhand", "Racket away from your body. Rotate."),
+        d("Front-court drives", 180,
+          "A step in front of the short line, a racket length off the forehand wall. Straight drives to length, "
+          "turning your shoulders more than feels natural. Switch to the backhand halfway.",
+          (15, "Go around the ball, not at it."),
+          (60, "Rotate. Finish high, to the front wall."),
+          (90, "Switch to the backhand wall."),
+          (140, "Racket away from your body. Use the space.")),
         ghost("Ghosting: front corners", "medium", FRONT,
               "Medium pace. Lunge closed, left foot forward on the right and right foot forward on the left. "
               "Swing on the beep, and get back to the T for the next call.",
               ("Racket up before you leave the T.", "Push back hard from the lunge."), seed=13),
         drive_and_recover("forehand"),
         drive_and_recover("backhand"),
+        ghost("Ghosting: middle and back", "medium", MIDDLE + BACK,
+              "Medium pace. Back corners via the box corner, middle open or closed. "
+              "Swing on the beep, and get back to the T for the next call.",
+              ("Plant at forty-five degrees at the back.", "Split step on every call."), seed=15),
         three_shot("forehand"),
         three_shot("backhand"),
         ghost("Ghosting: six points", seed=14, **FAST_SIX),
@@ -222,6 +243,13 @@ PHASE1_B = dict(
           (140, "Keep the rhythm. Watch the ball.")),
         box_volleys("forehand", "Racket above the ball. Come down on it.", "Follow through to the front wall."),
         box_volleys("backhand", "Racket high. Punch.", "Shoulders to the side wall."),
+        d("Volley heights", 180,
+          "A step in front of the short line, close to the forehand wall. Three straight volleys in turn: "
+          "just above the service line, on it, then just above the tin. Switch to the backhand halfway.",
+          (15, "Above the line. On the line. Above the tin."),
+          (60, "Same punch every time. Only the target changes."),
+          (90, "Switch to the backhand wall."),
+          (140, "Racket high. Firm wrist.")),
         ghost("Ghosting: front corners with drops", "medium", FRONT,
               "Medium pace. Lunge closed and play a soft shadow drop on the beep, then get back to the T "
               "for the next call.",
