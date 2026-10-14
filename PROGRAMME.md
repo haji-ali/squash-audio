@@ -1,6 +1,6 @@
 # Solo squash programme
 
-A progressive solo programme built from the coaching notes in `SQUASH_NOTES.md`. Each session is a guided audio file of up to 50 minutes. `drills.py` holds the exact wording and timings. This document holds the design, the mastery tests, and the plan for later phases.
+A progressive solo programme built from the coaching notes in `SQUASH_NOTES.md`. Each session is a guided audio file of about 50 minutes. `drills.py` holds the exact wording and timings. This document holds the design, the mastery tests, and the plan for later phases.
 
 ## The player and the goal
 
@@ -35,6 +35,7 @@ Longer-term goals:
 - **Length:** a drive whose second bounce is near the back wall.
 - **"No T" in control drills:** the ball comes straight back to you, so stay behind it. A softer drive landing in the service box is a *control* target, not a match target.
 - **Drive and recover:** hit higher and softer to buy time, push two steps toward the T, then come back in behind the ball.
+- **Feed shot and reset:** in a continuous solo drill you are also the opponent, so a really good shot leaves you a hard ball. Loops give one shot the work and play the other as a feed, softer so the ball sits up. In drive drills, a higher, softer drive after a good one gets the rally back. Losing the rhythm after a good shot is expected; scored drills count successes per set of ten, not streaks.
 
 ## Ghosting system
 
@@ -45,7 +46,7 @@ Longer-term goals:
   3. The next call comes when you should be back at the T, so split step on every call.
 - **Rounds:** each ghosting block is three minutes, in rounds with spoken rest and one technique tip. Three countdown ticks restart each round.
 
-Times are in seconds from the **end** of the call, which takes about 0.8 s to say. Each cell is end of call → pip, then pip → next call.
+Times are in seconds from the **end** of the call, which takes about 0.8 s to say (1.45 s with a stance). Each cell is end of call → pip, then pip → next call.
 
 | Pace | Front | Back | Middle | Rounds |
 |---|---|---|---|---|
@@ -73,31 +74,31 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 **Ghosting footwork (from coaching):**
 - Back corners: go via the service-box corner. Plant at 45°: left then right foot in the right corner, right then left foot in the left corner.
 - Front corners: finish closed, with the left foot forward on the right and the right foot forward on the left.
-- Middle: open or closed stance. An open-stance backhand needs more rotation.
+- Middle: open or closed stance. An open-stance backhand needs more rotation. In Session B's volley ghosting each call names the stance ("Open, middle left"). Open is a rushed ball, so its pip comes 0.5 s sooner (`OPEN_HURRY`).
 - Every rep: full swish from high prep to high follow-through, then fast back to the T.
 
 ## Phase 1: Foundation (built)
 
 **Files:**
-- `out/phase1-a.mp3`: Drive & Move, about 49 min.
-- `out/phase1-b.mp3`: Volley & Front Court, about 48 min.
+- `out/phase1-a.mp3`: Drive & Move, about 51 min.
+- `out/phase1-b.mp3`: Volley & Front Court, about 50 min.
 
 ### Session A: Drive & Move
 
 | # | Drill | Min | What |
 |---|---|---|---|
 | 1 | Movement warm-up | 4 | 2 min of called moves (jog, side-steps, lunges, hips, high knees, arm circles), then called split steps (easy pace, two steps) |
-| 2 | Side-to-side warm-up | 3 | From the middle in front of the short line, cross court FH ↔ BH with a bounce |
-| 3–4 | FH / BH straight drives | 3 + 3 | A racket length off the wall, behind the short line. Medium pace, bouncing at the back of the box. Prep and finish cues |
+| 2 | Side-to-side warm-up | 3 | In the middle, a step in front of the short line, facing the front wall. Around the service line, just off centre, so the ball comes back to the other side: FH, BH, FH, one bounce each |
+| 3–4 | FH / BH straight drives | 3 + 3 | A racket length off the wall, at the back of the service box. Medium pace, just above the service line, first bounce in the box so it comes up to you. Prep and finish cues |
 | 5 | Ghosting: back corners | 3 | slow |
-| 6–7 | FH / BH feed and step in | 3 + 3 | Soft high feed lands near the short line. Get behind it, stomp, deep drive. Collect and repeat |
-| 8 | Front-court drives | 3 | Step in front of the short line: straight drives to length with exaggerated rotation, going around the ball. Switch to the backhand halfway |
-| 9 | Ghosting: front corners | 3 | medium, closed lunge |
-| 10–11 | FH / BH drive and recover | 2 + 2 | Higher, softer drives, two steps toward the T and back |
-| 12 | Ghosting: middle and back | 3 | medium |
-| 13–14 | FH / BH three-shot sequence | 2 + 2 | Soft (service box), medium (behind the box), hard and low (under the service line, off the back wall). Same prep for all |
-| 15 | Ghosting: six points | 3 | fast |
-| 16 | Cool-down | 3 | Easy side-to-side, then called stretches: calves, hips, shoulders, each side |
+| 6–7 | FH / BH feed and step in | 3 + 3 | Soft high feed lands near the short line. Get behind it, stomp, deep drive: a racket head above the service line, first bounce behind the box. Collect and repeat |
+| 8–9 | FH / BH front-court drives | 2 + 2 | Step in front of the short line: straight drives to length (a racket head above the service line, first bounce behind the box) with exaggerated rotation, going around the ball |
+| 10 | Ghosting: front corners | 3 | medium, closed lunge |
+| 11–12 | FH / BH drive and recover | 2 + 2 | Higher, softer drives, two steps toward the T and back |
+| 13 | Ghosting: middle and back | 3 | medium |
+| 14–15 | FH / BH three-shot sequence | 2 + 2 | Soft (on the service line, bouncing in the box), medium (a racket head above, bouncing behind the box), hard (just under the service line, off the back wall). Same prep for all |
+| 16 | Ghosting: six points | 3 | fast |
+| 17 | Cool-down | 3 | Easy side-to-side, then called stretches: calves, hips, shoulders, each side |
 
 ### Session B: Volley & Front Court
 
@@ -105,17 +106,17 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 |---|---|---|---|
 | 1 | Movement warm-up | 4 | As in A |
 | 2 | Side-to-side warm-up | 3 | As in A |
-| 3–4 | FH / BH short volleys | 2 + 2 | One step in front of the short line, near the wall, aiming just above the service line |
-| 5 | Ghosting: volley positions | 3 | slow, middle left and right |
-| 6 | Forehand to backhand volleys | 3 | Middle, about 2 m from the front wall. First half with a bounce, second half on the volley |
-| 7–8 | FH / BH box volleys | 2 + 2 | Back of the service box, medium pace, ball returns at shoulder height. Racket above the ball |
-| 9 | Volley heights | 3 | Step in front of the short line, near the wall: straight volleys just above the service line, on it, just above the tin. Switch to the backhand halfway |
-| 10 | Ghosting: front corners with drops | 3 | medium, shadow drops |
-| 11–12 | FH / BH drops | 2 + 2 | In front of the short line: drop, bounce, drop, just above the tin |
-| 13 | Serve then T | 3 | Serve, move to the T and split step as if volleying the return. Switch boxes halfway |
-| 14–15 | FH / BH length check | 2 + 2 | Count straight drives in a row landing behind the short line |
-| 16 | Ghosting: six points | 3 | fast |
-| 17 | Cool-down | 3 | As in A |
+| 3–4 | FH / BH short volleys | 2 + 2 | One step in front of the short line, near the wall, aiming just above the service line so it returns at shoulder height |
+| 5 | Ghosting: volley positions | 3 | slow, middle left and right, each called open or closed. Open comes 0.5 s quicker |
+| 6 | Forehand to backhand volleys | 3 | Middle, about 2 m from the front wall, around the service line just off centre. First half with a bounce, second half on the volley |
+| 7–8 | FH / BH box volleys | 2 + 2 | Back of the service box, medium pace, a racket head above the service line, ball returns at shoulder height. Racket above the ball |
+| 9–10 | FH / BH volley heights | 2 + 2 | Step in front of the short line, near the wall: straight volleys just above the service line, on it, just above the tin, then let it bounce and restart |
+| 11 | Ghosting: front corners with drops | 3 | medium, shadow drops |
+| 12–13 | FH / BH drops | 2 + 2 | In front of the short line: drop, bounce, drop, just above the tin |
+| 14 | Serve then T | 3 | Serve, move to the T and split step as if volleying the return. Switch boxes halfway |
+| 15–16 | FH / BH length check | 2 + 2 | A racket head above the service line, first bounce behind the box. Score sets of ten by how many bounce first behind the short line; softer reset shots allowed and not counted |
+| 17 | Ghosting: six points | 3 | fast |
+| 18 | Cool-down | 3 | As in A |
 
 ### Phase 1 mastery test
 
@@ -123,7 +124,7 @@ Pass every line in two sessions in a row, then move to Phase 2. Expect roughly 4
 
 | Test | Target |
 |---|---|
-| Straight drives in a row landing behind the short line (length check) | 10 each side |
+| Length check: drives bouncing first behind the short line, per set of ten, resets allowed | 8 each side |
 | Feed and step in, second bounce at the back wall | 7 of 10 each side |
 | Forehand to backhand volleys, no bounce | 20 in a row |
 | Box volleys | 10 in a row each side |
@@ -131,6 +132,32 @@ Pass every line in two sessions in a row, then move to Phase 2. Expect roughly 4
 | Ghosting | Every rep at the pip, full swish, split step on each call, form holds in the fast block |
 
 Keep a short log: date, session, the numbers above, and one line on what broke down. That line decides the Phase 2 details.
+
+## Focus session: Drops, Lobs & Length (built)
+
+**File:** `out/focus-front.mp3`, about 49 min. A one-off session added after a match lost mainly on unreached drops, alongside Phase 1 rather than part of the progression. Three aims:
+- **Reach the drop** by starting earlier: recover just behind the T (not deep), split step on the hit, racket up before arriving.
+- **Lob from the front** to buy time: low, under the ball, open face, lift high above the service line. Cross-court lobs clip the side wall high behind the service box. From the front court, a cross-court's front-wall target is on the hitter's own half, not past the middle.
+- **Length by height, not force:** aim about a racket head above the service line, so the first bounce lands behind the service box and the second near the back wall.
+
+Announcements in this session are longer than in Phase 1: each one explains what the drill is for and what a good rep looks like, at the user's request.
+
+| # | Drill | Min | What |
+|---|---|---|---|
+| 1 | Movement warm-up | 4 | As in Phase 1 |
+| 2 | Side-to-side warm-up | 3 | As in Phase 1 |
+| 3 | Ghosting: split step and go | 3 | slow, front corners. Early start, closed lunge, racket up |
+| 4–5 | FH / BH length by height | 3 + 3 | Behind the short line, aim a racket head above the service line |
+| 6–7 | FH / BH drop and lob | 3 + 3 | From the short line, drop, move in and lob before the second bounce. Straight, then cross-court halfway |
+| 8 | Ghosting: front corners with lobs | 3 | medium, shadow lob, low to high |
+| 9 | Boast and straight lob | 3 | Alternating loop: boast from the back right, straight lob down the left, boast from the back left, straight lob down the right. First half the lob is the real shot and the boast a feed; second half the reverse |
+| 10 | Ghosting: back to front | 3 | medium, back and front corners. Full recovery to the T after every back corner |
+| 11 | Boast and cross-court | 3 | Boast from the back right, firm cross-court drive with width (side wall behind the box) back to the back right. The boast is a feed. Switch sides halfway |
+| 12–13 | FH / BH length when tired | 2 + 2 | Same aim as 4–5. Score sets of ten by how many bounce first behind the short line, with resets allowed |
+| 14 | Ghosting: drop retrieval | 3 | fast, all six with the front corners called twice as often |
+| 15 | Cool-down | 3 | As in Phase 1 |
+
+Suggested use: once a week in place of one Phase 1 session until drops stop costing points. Log the length-when-tired counts against the Phase 1 length check.
 
 ## Phase 2: Build (designed, not yet built)
 
@@ -146,7 +173,7 @@ Keep a short log: date, session, the numbers above, and one line on what broke d
 | 5 | Ghosting: back corners with a boast | 3 | medium. Shadow boast on the pip |
 | 6–7 | FH / BH feed and attack | 3 + 3 | Self-feed to mid court. Alternate a deep drive and a hard drive under the service line. Same set-up for both |
 | 8 | Solo boast and drive | 3 | Boast from the back right, ball goes to the front left. Run, straight drive down the left wall, it comes back to the back left. Boast, drive down the right wall, and repeat. Start slow |
-| 9 | Ghosting: front corners | 3 | fast |
+| 10 | Ghosting: front corners | 3 | fast |
 | 10–11 | FH / BH drive then volley | 2 + 2 | Drive straight, volley the return straight, and alternate. Racket up for the volley |
 | 12–13 | FH / BH three-shot sequence with recovery | 2 + 2 | Phase 1 sequence plus two steps toward the T after each shot |
 | 14 | Ghosting: six points | 3 | fast, 5 × 20 s, 20 s rest |

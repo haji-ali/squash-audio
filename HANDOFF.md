@@ -12,10 +12,12 @@ Generate guided audio files for solo squash practice. Each file announces a dril
 ## Current state
 
 Phase 1 is built:
-- `out/phase1-a.mp3`: Drive & Move, 16 drills, about 49 min.
-- `out/phase1-b.mp3`: Volley & Front Court, 17 drills, about 48 min.
+- `out/phase1-a.mp3`: Drive & Move, 17 drills, about 51 min.
+- `out/phase1-b.mp3`: Volley & Front Court, 18 drills, about 50 min.
 
-Both are CBR 64k with chapters and cover art. Next to each MP3 in `out/`:
+Also built: `out/focus-front.mp3`, a one-off Drops, Lobs & Length session (15 drills, about 49 min). See `PROGRAMME.md`. Its announcements are deliberately longer than Phase 1's, explaining each drill's purpose.
+
+All are CBR 64k with chapters and cover art. Next to each MP3 in `out/`:
 - `<id>.txt`: the announce and start time of each drill.
 - `<id>.ffmeta`: the chapter definitions.
 - `<id>.jpg`: the cover.
@@ -39,6 +41,7 @@ Phases 2 and 3 are designed in `PROGRAMME.md` but not built. The user moves on o
   - `ten=True` adds a "Ten seconds." cue automatically.
   - Helpers: `warmup`, `ghost`, `drives`, `feed_and_step` and others build repeated drill shapes.
   - `ghost()` generates position calls with a fixed random seed from `PACES` (time after each call to the pip and back, per front, middle and back) and `ROUNDS` (work and rest).
+  - `CALL_SECS` holds each call's spoken length, since pips are timed from the end of the call. `STANCE_MIDDLE` calls name the stance ("Open, middle left."), and an open call's pip comes `OPEN_HURRY` seconds sooner.
 - **`build.py`:** synthesises speech, builds the timeline, mixes, and encodes. `build.py [session-id ...]` builds the named sessions, or all of them with no arguments.
 - **`cover.py`:** `make(subtitle, footer, path)` draws a 1400×1400 cover. The build calls it for every session. It uses macOS Arial, falling back to DejaVu on Linux.
 - **`cache/`:** edge-tts clips as `.mp3`, keyed by SHA1 of `voice|rate|text`, each with a `.json` of edge-tts sentence timings (start, end, text) used for the subtitles. A clip missing its `.json` is resynthesised. Changing the voice, rate or text resynthesises only what changed.
@@ -76,6 +79,7 @@ Build:
 - `alimiter` needs `level=0`, otherwise it auto-levels back to 0 dBFS.
 - Feed ffmpeg float32, not int16. Clipping before the limiter was a bug.
 - Keep MP3 output CBR. VBR made chapter seeking imprecise, because players estimate the byte offset from the time.
+- edge-tts failing with `403, message='Invalid response status'` means the installed edge-tts is out of date: `.venv/bin/pip install --upgrade edge-tts`.
 - ffmpeg writes ID3v2.3 CHAP/CTOC frames from `-map_metadata 2 -map_chapters 2`. The cover is embedded with `-map 1:v -c:v copy -id3v2_version 3`.
 
 ## Chapters
@@ -86,5 +90,5 @@ Build:
 
 ## Open items
 
-- The user should try Phase 1 on court. Ghosting pace (`PACES`) is the likeliest thing to tune. Transitions are 9 to 19 s.
+- The user should try Phase 1 on court. Ghosting pace (`PACES`) is the likeliest thing to tune. Transitions are 9 to 25 s.
 - Build Phase 2 once the user reports passing the Phase 1 mastery test. Use their log of what broke down to adjust the Phase 2 drills.

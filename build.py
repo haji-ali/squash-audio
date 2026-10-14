@@ -9,7 +9,7 @@ import edge_tts
 import numpy as np
 
 import cover
-from drills import ALL, ARRIVE, CALL_SECS, RATE, SESSIONS, TICK, VOICE
+from drills import ARRIVE, CALL_SECS, RATE, SESSIONS, TICK, VOICE
 
 SR = 24000
 ROOT = Path(__file__).parent
@@ -145,9 +145,10 @@ def build(session):
     texts = session_texts(session)
     loaded = {t: load(t) for t in dict.fromkeys(texts)}
     clips = {t: samples for t, (samples, _) in loaded.items()}
-    long_calls = [f"{t!r} is {len(clips[t]) / SR:.2f}s" for t in ALL if t in clips and len(clips[t]) / SR > CALL_SECS + 0.05]
+    long_calls = [f"{t!r} is {len(clips[t]) / SR:.2f}s, allowed {secs}s" for t, secs in CALL_SECS.items()
+                  if t in clips and len(clips[t]) / SR > secs + 0.05]
     if long_calls:
-        sys.exit(f"position calls longer than CALL_SECS={CALL_SECS}: " + ", ".join(long_calls))
+        sys.exit("position calls longer than CALL_SECS: " + ", ".join(long_calls))
     clip = lambda item: TONES.get(item, clips.get(item))
     dur_of = lambda item: len(clip(item)) / SR
 
