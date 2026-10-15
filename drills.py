@@ -31,8 +31,8 @@ ROUNDS = {"slow": (3, 49, 15), "medium": (3, 46, 15), "fast": (4, 32, 15)}
 GHOST_SECS = 180
 
 
-def d(name, secs, intro, *cues, ten=True):
-    return dict(name=name, secs=secs, intro=intro, cues=list(cues), ten=ten)
+def d(name, secs, intro, *cues, ten=True, say_secs=True):
+    return dict(name=name, secs=secs, intro=intro, cues=list(cues), ten=ten, say_secs=say_secs)
 
 
 def calls(positions, pace, start, end, rng):
@@ -58,7 +58,9 @@ def calls(positions, pace, start, end, rng):
 def warmup(seed):
     cues, _ = calls(ALL, "easy", 124, 236, random.Random(seed))
     return d("Movement warm-up", 240,
-             "Two minutes of moves as I call them, then split step at the T and take two steps toward each call.",
+             # The voice reduces "four" in "four minutes" to "for", so the intro gives the two halves instead.
+             "Two minutes of moves as I call them, then two minutes of split steps at the T, taking two steps "
+             "toward each call.",
              (1, "Jog round the court."),
              (20, "Side-steps."),
              (40, "Lunges, alternating legs."),
@@ -66,7 +68,7 @@ def warmup(seed):
              (80, "High knees."),
              (100, "Arm circles, both directions."),
              (120, "Back to the T. Split steps now."),
-             *cues, ten=False)
+             *cues, ten=False, say_secs=False)
 
 
 def ghost(name, pace, positions, intro, tips, seed):
@@ -108,7 +110,8 @@ COOL_DOWN = d(
 
 FAST_SIX = dict(
     pace="fast", positions=ALL,
-    intro="Fast pace, all six positions. Split step on every call, swing on the beep, "
+    intro="Fast pace, all six positions. Phase two target: every rep at the beep with a full swish, "
+          "and form that holds to the last round. Split step on every call, swing on the beep, "
           "and sprint back to the T for the next call.",
     tips=("Stay engaged. Low and wide at the T.",
           "Feet pointing forward. Knees bent.",
@@ -132,10 +135,11 @@ def feed_and_step(side, mid_tip):
         f"{side.capitalize()} feed and step in", 180,
         "From behind the short line, tap a soft, high feed so it lands near the short line. Get behind it, "
         "feet facing the side wall, stomp your front foot, and drive deep: a racket head above the service line, "
-        "first bounce behind the service box.",
+        "first bounce behind the service box. Score each set of ten. Phase two target: seven out of ten with the "
+        "second bounce at the back wall, misses in between allowed.",
         (20, "Get behind the ball."),
         (75, mid_tip),
-        (130, "Second bounce near the back wall."))
+        (130, "Target: seven out of ten to the back wall."))
 
 
 def drive_and_recover(side):
@@ -182,7 +186,8 @@ def box_volleys(side, first, second):
     return d(
         f"{side.capitalize()} box volleys", 120,
         "From the back of the service box, medium pace, a racket head above the service line, so it comes "
-        "back at shoulder height without bouncing. Let it bounce if you lose it.",
+        "back at shoulder height without bouncing. Let it bounce if you lose it. "
+        "Phase two target: ten volleys in one rally, without a break.",
         (15, first),
         (60, second))
 
@@ -202,7 +207,8 @@ def drops(side):
     return d(
         f"{side.capitalize()} drops", 120,
         "In front of the short line, close to the side wall. Feed softly, then drop, let it bounce, "
-        "and drop again, just above the tin.",
+        "and drop again, just above the tin. Phase two target: five drops in one rally, without a break, each "
+        "short enough to bounce twice before the short line.",
         (15, "Open face. Soft hands."),
         (60, "Step in with your front foot. Stay low."))
 
@@ -212,16 +218,18 @@ def length_check(side):
         f"{side.capitalize()} length check", 120,
         "Straight drives to length from behind the short line: a racket head above the service line, first "
         "bounce behind the service box. Score each set of ten by how many bounce first behind the short line. "
-        "Reset with a softer one whenever you need to. Resets don't count.",
+        "Reset with a softer one whenever you need to. Resets don't count. Phase two target: eight out of ten, "
+        "misses in between allowed.",
         (20, "Racket up early. Finish high."),
-        (70, "Count them. Beat your best."))
+        (70, "Count them. Target: eight out of ten."))
 
 
 PHASE1_A = dict(
     id="phase1-a",
     title="Squash solo - Phase 1 A: Drive & Move",
     subtitle="Phase 1  ·  A  ·  Drive & Move",
-    intro="Phase one, session A: drive and move.",
+    intro="Phase one, session A: drive and move. Drills with a phase two target say so. "
+          "Hit every target in two sessions back to back to move up.",
     outro="That's session A. Well done.",
     drills=[
         warmup(seed=11),
@@ -255,7 +263,8 @@ PHASE1_B = dict(
     id="phase1-b",
     title="Squash solo - Phase 1 B: Volley & Front Court",
     subtitle="Phase 1  ·  B  ·  Volley & Front Court",
-    intro="Phase one, session B: volleys and the front court.",
+    intro="Phase one, session B: volleys and the front court. Drills with a phase two target say so. "
+          "Hit every target in two sessions back to back to move up.",
     outro="That's session B. Well done.",
     drills=[
         warmup(seed=21),
@@ -269,9 +278,10 @@ PHASE1_B = dict(
               ("Racket up, ready for the volley.", "Backhand in an open stance? Rotate more."), seed=22),
         d("Forehand to backhand volleys", 180,
           "In the middle, two metres from the front wall: forehand across to your backhand, backhand back across, "
-          "hitting around the service line just off centre. Let it bounce for the first half.",
+          "hitting around the service line just off centre. Let it bounce for the first half. "
+          "Phase two target: twenty volleys in one rally, without a break.",
           (15, "Short swings. Racket up early."),
-          (90, "Now on the volley. Lose it? Restart with a bounce."),
+          (90, "Now on the volley. Target: twenty without a break. Lose it? Restart with a bounce, and count from zero."),
           (140, "Keep the rhythm. Watch the ball.")),
         box_volleys("forehand", "Racket above the ball. Come down on it.", "Follow through to the front wall."),
         box_volleys("backhand", "Racket high. Punch.", "Shoulders to the side wall."),

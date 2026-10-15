@@ -12,8 +12,8 @@ Generate guided audio files for solo squash practice. Each file announces a dril
 ## Current state
 
 Phase 1 is built:
-- `out/phase1-a.mp3`: Drive & Move, 17 drills, about 51 min.
-- `out/phase1-b.mp3`: Volley & Front Court, 18 drills, about 50 min.
+- `out/phase1-a.mp3`: Drive & Move, 17 drills, about 52 min.
+- `out/phase1-b.mp3`: Volley & Front Court, 18 drills, about 51 min.
 
 Also built: `out/focus-front.mp3`, a one-off Drops, Lobs & Length session (15 drills, about 49 min). See `PROGRAMME.md`. Its announcements are deliberately longer than Phase 1's, explaining each drill's purpose.
 
@@ -79,6 +79,7 @@ Build:
 - `alimiter` needs `level=0`, otherwise it auto-levels back to 0 dBFS.
 - Feed ffmpeg float32, not int16. Clipping before the limiter was a bug.
 - Keep MP3 output CBR. VBR made chapter seeking imprecise, because players estimate the byte offset from the time.
+- The voice mispronounces "row" (as in a fight) and reduces "four" to "for" mid-sentence. Keep both out of spoken text: "without a break" or "back to back" instead of "in a row", and `say_secs=False` on the four-minute warm-up so its length isn't announced.
 - edge-tts failing with `403, message='Invalid response status'` means the installed edge-tts is out of date: `.venv/bin/pip install --upgrade edge-tts`.
 - ffmpeg writes ID3v2.3 CHAP/CTOC frames from `-map_metadata 2 -map_chapters 2`. The cover is embedded with `-map 1:v -c:v copy -id3v2_version 3`.
 

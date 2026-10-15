@@ -122,7 +122,10 @@ def duration_words(secs):
 
 
 def announcement(drill):
-    return f"{drill['name'].replace(':', ',')}, {duration_words(drill['secs']).lower()}. {drill['intro']}"
+    name = drill['name'].replace(':', ',')
+    if not drill["say_secs"]:
+        return f"{name}. {drill['intro']}"
+    return f"{name}, {duration_words(drill['secs']).lower()}. {drill['intro']}"
 
 
 def drill_cues(drill):

@@ -80,8 +80,8 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 ## Phase 1: Foundation (built)
 
 **Files:**
-- `out/phase1-a.mp3`: Drive & Move, about 51 min.
-- `out/phase1-b.mp3`: Volley & Front Court, about 50 min.
+- `out/phase1-a.mp3`: Drive & Move, about 52 min.
+- `out/phase1-b.mp3`: Volley & Front Court, about 51 min.
 
 ### Session A: Drive & Move
 
@@ -120,15 +120,17 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 
 ### Phase 1 mastery test
 
-Pass every line in two sessions in a row, then move to Phase 2. Expect roughly 4 to 8 weeks.
+Pass every line in two consecutive sessions, then move to Phase 2. Expect roughly 4 to 8 weeks.
+
+The audio states each target in the drill that tests it ("Phase two target: ..."), and both session intros say to hit every target in two sessions in a row.
 
 | Test | Target |
 |---|---|
-| Length check: drives bouncing first behind the short line, per set of ten, resets allowed | 8 each side |
-| Feed and step in, second bounce at the back wall | 7 of 10 each side |
-| Forehand to backhand volleys, no bounce | 20 in a row |
-| Box volleys | 10 in a row each side |
-| Drops, bouncing twice before the short line | 5 in a row each side |
+| Length check: drives bouncing first behind the short line, per set of ten, resets allowed | 8 of 10 each side, misses in between allowed |
+| Feed and step in, second bounce at the back wall | 7 of 10 each side, misses in between allowed |
+| Forehand to backhand volleys, no bounce | 20 in one unbroken rally |
+| Box volleys | 10 in one unbroken rally, each side |
+| Drops, bouncing twice before the short line | 5 in one unbroken rally, each side |
 | Ghosting | Every rep at the pip, full swish, split step on each call, form holds in the fast block |
 
 Keep a short log: date, session, the numbers above, and one line on what broke down. That line decides the Phase 2 details.
