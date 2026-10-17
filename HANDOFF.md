@@ -17,6 +17,8 @@ Phase 1 is built:
 
 Also built: `out/focus-front.mp3`, a one-off Drops, Lobs & Length session (15 drills, about 50 min). See `PROGRAMME.md`. Its announcements are deliberately longer than Phase 1's, explaining each drill's purpose.
 
+Two ladders are built, `out/ladder-figure-eight.mp3` and `out/ladder-side-to-side.mp3`: single-skill progressions with one short chapter per level, played one level at a time (see "Ladders" in `PROGRAMME.md`, which also plans five more).
+
 Each MP3 is rendered from `out/<id>.overtone.json`, the session as an Overtone script.
 
 Phases 2 and 3 are designed in `PROGRAMME.md` but not built. The user moves on once they pass the Phase 1 mastery test.
@@ -44,10 +46,10 @@ The renderer reports every fixed line it had to move by more than 0.5 s, and eve
 ## Layout
 
 - **`drills.py`:** all content.
-  - `SESSIONS` is a list of session dicts: `id`, `title`, `subtitle`, `intro`, `outro`, `drills`.
+  - `SESSIONS` is a list of session dicts: `id`, `title`, `subtitle`, `intro`, `outro`, `drills`. A ladder has `levels` instead of `drills`, and no `outro`. Optional: `description` (the script's description, written as the MP3's comment) and `footer` (the cover footer, instead of the estimated minutes).
   - Each drill is `d(name, secs, intro, *cues, ten=True)`. Cues are `(offset_seconds_from_start, item)`, where `item` is spoken text or a tone marker (`ARRIVE`, `TICK`).
   - `ten=True` adds a "Ten seconds." cue automatically.
-  - Helpers: `warmup`, `ghost`, `drives`, `feed_and_step` and others build repeated drill shapes.
+  - Helpers: `warmup`, `ghost`, `drives`, `feed_and_step` and others build repeated drill shapes. `level(num, title, setup, target, *tips)` is a ladder level.
   - `ghost()` generates position calls with a fixed random seed from `PACES` (time after each call to the pip and back, per front, middle and back) and `ROUNDS` (work and rest).
   - `CALL_SECS` is the time allowed for each call when fitting calls into a round. `STANCE_MIDDLE` calls name the stance ("Open, middle left."), and an open call's pip comes `OPEN_HURRY` seconds sooner.
 - **`build.py`:** writes the Overtone scripts. `build.py [session-id ...]` writes the named sessions, or all of them with no arguments.
@@ -64,6 +66,7 @@ The renderer reports every fixed line it had to move by more than 0.5 s, and eve
   - The drill: the start tone, then the cues at their offsets. "Ten seconds." uses `beforeEnd`. Each arrival pip follows its call (`after`) by the pace, timed from the end of the call as spoken, and the next call or rest follows the pip the same way.
   - The stop tone.
 - Finish chapter: the outro 2 s after the last stop tone starts, then 1 s of silence.
+- A ladder instead has the intro chapter, then one chapter per level, titled "Level <num>: <title>": the title and setup, the target and the tips, each 0.5–0.7 s after the line before, then 0.5 s of silence. Playback stops at the end of a chapter, so there's no countdown or timed block. The level number isn't spoken, because the voice says "four" as "for".
 - `minimumGap` is 0.8 s: a fixed line that would overlap the one before it starts 0.8 s after it ends.
 - Tones (`SOUNDS` in `build.py`, volumes relative to the speech's peaks):
   - Tick: 880 Hz.

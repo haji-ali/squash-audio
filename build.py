@@ -1,9 +1,12 @@
 """Writes each session as an Overtone script, out/<id>.overtone.json, which the Overtone repo's
 scripts/render_script.swift renders to an MP3.
 
-Each script has an intro chapter, then per drill an announcement, a 3.5 s countdown, the drill and its
+A session has an intro chapter, then per drill an announcement, a 3.5 s countdown, the drill and its
 stop tone, then a finish chapter. Ghosting calls and arrival pips are chained with `after`, so each
 pip is timed from the end of its call as the voice actually says it.
+
+A ladder has an intro chapter, then one chapter per level that only says how to play it, for playing
+one level at a time.
 """
 import base64
 import json
@@ -107,6 +110,13 @@ def drill_chapter(i, drill):
     }
 
 
+def level_chapter(level):
+    # Played on its own, so it ends just after the last tip: playback stops at the chapter's end.
+    lines = [say(f"{level['title']}. {level['setup']}", after=0.5), say(level["target"], after=0.7)]
+    lines += [say(tip, after=0.7) for tip in level["tips"]]
+    return {"title": f"Level {level['num']}: {level['title']}", "parts": [{"lines": lines}, {"duration": 0.5}]}
+
+
 def estimated_minutes(session):
     speech = lambda text: len(text.split()) / WORDS_PER_SEC
     total = 0.5 + speech(session["intro"]) + 1
@@ -118,29 +128,38 @@ def estimated_minutes(session):
 def artwork(session):
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / "cover.jpg"
-        cover.make(session["subtitle"], f"{estimated_minutes(session)} min", path)
+        cover.make(session["subtitle"], session.get("footer") or f"{estimated_minutes(session)} min", path)
         return "data:image/jpeg;base64," + base64.b64encode(path.read_bytes()).decode()
 
 
+def chapters(session):
+    if "levels" in session:
+        intro = {"title": "Intro", "parts": [{"lines": [say(session["intro"], at=0.5)]}, {"duration": 0.5}]}
+        return [intro] + [level_chapter(level) for level in session["levels"]]
+    return [
+        {"title": "Intro", "lines": [say(session["intro"], at=0.5)]},
+        *(drill_chapter(i, drill) for i, drill in enumerate(session["drills"])),
+        {"title": "Finish", "parts": [
+            # The outro comes 2 s after the last stop tone starts, and the file ends 1 s after it.
+            {"lines": [say(session["outro"], after=r(2.0 - STOP_SECS))]},
+            {"duration": 1},
+        ]},
+    ]
+
+
 def script(session):
-    chapters = [{"title": "Intro", "lines": [say(session["intro"], at=0.5)]}]
-    chapters += [drill_chapter(i, drill) for i, drill in enumerate(session["drills"])]
-    chapters.append({"title": "Finish", "parts": [
-        # The outro comes 2 s after the last stop tone starts, and the file ends 1 s after it.
-        {"lines": [say(session["outro"], after=r(2.0 - STOP_SECS))]},
-        {"duration": 1},
-    ]})
     return {
         "format": "overtone-script",
         "version": 1,
         "title": session["title"],
+        **({"description": session["description"]} if "description" in session else {}),
         "artwork": artwork(session),
         "voice": {"language": "en-GB", "gender": "male"},
         "speechRate": 1 + int(RATE.strip("%+")) / 100,
         "sounds": SOUNDS,
         # Spoken cues stay 0.8 s apart.
         "minimumGap": 0.8,
-        "chapters": chapters,
+        "chapters": chapters(session),
     }
 
 

@@ -407,4 +407,208 @@ FOCUS_FRONT = dict(
         COOL_DOWN,
     ])
 
-SESSIONS = [PHASE1_A, PHASE1_B, FOCUS_FRONT]
+def level(num, title, setup, target, *tips):
+    """A ladder level, played as a chapter of its own that says how to play it."""
+    return dict(num=num, title=title, setup=setup, target=target, tips=list(tips))
+
+
+LADDER_INTRO = ("Play the chapter for your level and repeat it until you reach the target, then move on to the "
+                "next. After a miss, count from zero.")
+
+# The Pursuit of Squash, Figure 8 Progressions. Levels 1 and 2 are front wall only; from level 3 each
+# shot goes into a front corner, front wall then side wall.
+FIGURE_OF_EIGHT_LADDER = dict(
+    id="ladder-figure-eight",
+    title="Squash solo - Ladder: Figure of Eight",
+    subtitle="Ladder  ·  Figure of Eight",
+    footer="15 levels",
+    description="The figure of eight in fifteen levels, from front-wall hits with a bounce to the full "
+                "corner volley drill. Based on The Pursuit of Squash's Figure 8 Progressions: "
+                "https://www.youtube.com/playlist?list=PLKXPpa_wrA76WvCcAgIYLvOJoHgzcFvl8",
+    intro=f"Figure of eight ladder. {LADDER_INTRO}",
+    levels=[
+        level("1", "Front wall, one bounce",
+              "Stand just in front of the T, facing the front wall. Front wall only: forehand across to your "
+              "backhand, backhand back across, with one bounce between hits. A blue or red dot ball helps.",
+              "Target: one hundred without a break.",
+              "Watch the ball onto the strings.", "Stay relaxed. This one is focus."),
+        level("2", "Front wall volleys",
+              "Same place, front wall only, forehand to backhand, now on the volley with no bounce. A blue or "
+              "red dot ball helps.",
+              "Target: one hundred without a break.",
+              "Short swings. Racket up between hits.", "Keep it above the service line."),
+        level("3A", "Forehand into the corner",
+              "Stand on the T. Forehand into the front wall near the left corner, so it goes on into the side "
+              "wall and comes straight back to you. Catch it, and go again.",
+              "Target: twenty-five without a break.",
+              "Front wall first, then the side wall.",
+              "Lands in front of you? Aim further from the side wall."),
+        level("3B", "Backhand into the corner",
+              "On the T. Backhand into the front wall near the right corner, so it goes on into the side wall "
+              "and comes straight back to you. Catch it, and go again.",
+              "Target: twenty-five without a break.",
+              "Front wall first, then the side wall.", "Lands behind you? Aim closer to the side wall."),
+        level("4A", "One figure of eight, forehand first",
+              "On the T. Forehand into the front left corner, let it bounce once, then backhand into the "
+              "front right corner. Catch it, and go again.",
+              "Target: twenty-five without a break.",
+              "Racket up as soon as you've hit.", "Same spot on the front wall each time."),
+        level("4B", "One figure of eight, backhand first",
+              "On the T. Backhand into the front right corner, let it bounce once, then forehand into the "
+              "front left corner. Catch it, and go again.",
+              "Target: twenty-five without a break.",
+              "Racket up as soon as you've hit.", "Same spot on the front wall each time."),
+        level("5", "Continuous, above the service line",
+              "On the T. Forehand into the left corner above the service line, one bounce, backhand into the "
+              "right corner above the line, and keep it going without catching. Every hit counts.",
+              "Target: one hundred without a break.",
+              "Above the line, both sides.", "Racket up between hits."),
+        level("6A", "Low forehand, high backhand",
+              "On the T, one bounce each. Forehand into the left corner below the service line, backhand into "
+              "the right corner above it, and keep it going.",
+              "Target: twenty-five figure of eights without a break.",
+              "Forehand low. Backhand high.", "Same swing. Only the height changes."),
+        level("6B", "Low backhand, high forehand",
+              "On the T, one bounce each. Backhand into the right corner below the service line, forehand "
+              "into the left corner above it, and keep it going.",
+              "Target: twenty-five figure of eights without a break.",
+              "Backhand low. Forehand high.", "Same swing. Only the height changes."),
+        level("7", "Both below the service line",
+              "On the T, one bounce each, both shots below the service line, so you have less time. A single "
+              "or double yellow dot ball.",
+              "Target: twenty-five figure of eights without a break, each one a forehand and a backhand.",
+              "Racket up early. Less time now.", "Stay on the T. Let the ball come."),
+        level("8A", "Adding the forehand volley",
+              "On the T. Forehand into the left corner, one bounce, then lift your backhand high into the "
+              "right corner so it comes back to your forehand in the air. Volley it into the left corner, and "
+              "go again.",
+              "Target: twenty-five without a break.",
+              "Volley just above the service line.", "Lift the backhand. Give yourself time."),
+        level("8B", "Adding the backhand volley",
+              "On the T. Backhand into the right corner, one bounce, then lift your forehand high into the "
+              "left corner so it comes back to your backhand in the air. Volley it into the right corner, and "
+              "go again.",
+              "Target: twenty-five without a break.",
+              "Rotate your forearm for power.", "Volley just above the service line."),
+        level("9A", "Volley start, forehand first",
+              "On the T. Forehand into the front left corner, thirty centimetres from the side wall. Before "
+              "it bounces, volley it on your backhand into the right corner, then on your forehand into the "
+              "left. Stop there: that's one set.",
+              "Target: ten sets without a break.",
+              "Sweet spot. Let the racket do the work.",
+              "In front of you? Further from the side wall. Behind you? Closer."),
+        level("9B", "Volley start, backhand first",
+              "On the T. Backhand into the front right corner, thirty centimetres from the side wall. Before "
+              "it bounces, volley it on your forehand into the left corner, then on your backhand into the "
+              "right. Stop there: that's one set.",
+              "Target: ten sets without a break.",
+              "Sweet spot. Let the racket do the work.",
+              "In front of you? Further from the side wall. Behind you? Closer."),
+        level("10", "The figure of eight",
+              "On the T. Start into a front corner, thirty centimetres from the side wall, halfway between "
+              "the service line and the out line. Then volley from corner to corner, front wall first every "
+              "time. Short of power on the backhand? Use a bouncier ball.",
+              "Target: twenty volleys without a break.",
+              "Front wall first, then the side wall.", "Sweet spot. Rotate your forearm on the backhand."),
+    ])
+
+# The Pursuit of Squash, Side to Side Challenges: side wall to side wall from the middle of the court.
+SIDE_TO_SIDE_LADDER = dict(
+    id="ladder-side-to-side",
+    title="Squash solo - Ladder: Side to Side",
+    subtitle="Ladder  ·  Side to Side",
+    footer="15 levels",
+    description="Side wall to side wall in fifteen levels, from single drives to continuous volleys, moving "
+                "up and down the court on the way. Based on The Pursuit of Squash's Side to Side Challenges: "
+                "https://www.youtube.com/playlist?list=PLKXPpa_wrA76U1bcwvln2kZ75L_wEDPoI",
+    intro=f"Side to side ladder: side wall to side wall, from the middle of the court. Wear goggles. {LADDER_INTRO}",
+    levels=[
+        level("1A", "Forehand across",
+              "Stand in the middle of the court. Step forward and drive your forehand into the right side "
+              "wall, so it crosses to the left wall, bounces, and comes back to you. Catch it, and go again.",
+              "Target: twenty-five, each one off the sweet spot with your head still.",
+              "Watch the ball onto the strings.", "Head still after you hit.", "Step forward into every shot."),
+        level("1B", "Backhand across",
+              "Middle of the court. Step forward and drive your backhand into the left side wall, so it "
+              "crosses to the right wall, bounces, and comes back to you. Catch it, and go again.",
+              "Target: twenty-five, each one off the sweet spot with your head still.",
+              "Watch the ball onto the strings.", "Head still after you hit.", "Step forward into every shot."),
+        level("2A", "Forehand, then backhand",
+              "Middle of the court. Forehand drive into the right wall, so it crosses to the left wall and "
+              "bounces, then drive it back with your backhand. Pick it up, and go again.",
+              "Target: twenty-five pairs without a break.",
+              "Racket up before each shot.", "Watch the ball. Head still."),
+        level("2B", "Backhand, then forehand",
+              "Middle of the court. Backhand drive into the left wall, so it crosses to the right wall and "
+              "bounces, then drive it back with your forehand. Pick it up, and go again.",
+              "Target: twenty-five pairs without a break.",
+              "Racket up before each shot.", "Watch the ball. Head still."),
+        level("3", "Continuous",
+              "Middle of the court. Drive into either side wall so it crosses to the other wall and bounces, "
+              "and keep it going, forehand, backhand. Let it peak just in front of you, as on a drive down "
+              "the wall. The further back you stand, the harder it gets.",
+              "Target: fifty without a break.",
+              "Hit it at the top of the bounce.", "Balanced. Head still."),
+        level("4A", "Moving forward",
+              "Start behind the T, facing the front wall. Side to sides with a bounce, each one angled "
+              "slightly forward, so you work your way to the front wall. Touch it with your racket, then work "
+              "your way back past the T.",
+              "Target: once, under control.",
+              "Small steps. Stay balanced.",
+              "Lost it? Back behind the T and start again.",
+              "Watch the ball. Head still."),
+        level("4B", "Facing the back wall",
+              "Start behind the T, facing the back wall. Angle each shot so it lands just behind you, and "
+              "walk backwards to the front wall. When you reach it, work your way forwards past the T.",
+              "Target: once, under control.",
+              "Small steps. Stay balanced.",
+              "Lost it? Back behind the T and start again.",
+              "Watch the ball. Head still."),
+        level("5A", "Turn at the front wall",
+              "Behind the T, facing the front wall. Work forward with a bounce each time, touch the front "
+              "wall with your racket, turn round on the spot, and work back past the T facing the back wall.",
+              "Target: once, under control.",
+              "Stay balanced through the turn.",
+              "Lost it? Back behind the T and start again.",
+              "Watch the ball. Head still."),
+        level("5B", "Backwards, then turn",
+              "Behind the T, facing the back wall. Walk backwards to the front wall with a bounce each time, "
+              "turn round on the spot, and work back past the T facing the front wall.",
+              "Target: once, under control.",
+              "Stay balanced through the turn.",
+              "Lost it? Back behind the T and start again.",
+              "Watch the ball. Head still."),
+        level("6A", "Two forehand volleys, one backhand",
+              "Middle of the court. Two forehand volleys into the side wall, then volley the next one on your "
+              "backhand into the other wall, and catch it. That's one set.",
+              "Target: twenty-five sets without a break.",
+              "Short punch. Racket up.", "Clean hits. Don't carry the ball."),
+        level("6B", "Two backhand volleys, one forehand",
+              "Middle of the court. Two backhand volleys into the side wall, then volley the next one on your "
+              "forehand into the other wall, and catch it. That's one set.",
+              "Target: twenty-five sets without a break.",
+              "Short punch. Racket up.", "Clean hits. Don't carry the ball."),
+        level("7", "Twenty-five each side",
+              "Middle of the court. Twenty-five forehand volleys into the side wall without a break, pause, "
+              "then twenty-five backhand volleys. A miss anywhere means starting again from the first "
+              "forehand.",
+              "Target: both sets, back to back.",
+              "Steady rhythm. Racket up.", "Missed? Back to the forehands.", "Firm wrist. Short punch."),
+        level("8", "Five a side",
+              "Middle of the court. Serve into the side wall and volley five on your forehand side, counting "
+              "the serve, then send the next one across and volley five on your backhand. Keep switching "
+              "without a bounce.",
+              "Target: ten switches, fifty volleys.",
+              "Count each side out loud.", "Racket up between every volley."),
+        level("9", "Two a side",
+              "Middle of the court. Volley twice on each side, then switch, without a bounce.",
+              "Target: twenty-five switches, fifty volleys.",
+              "Two, then across.", "Racket up between every volley."),
+        level("10", "Side to side volleys",
+              "Middle of the court, balanced, feet level or one slightly ahead. Volley from side wall to side "
+              "wall without a bounce, and don't carry the ball.",
+              "Target: twenty-five switches without a break.",
+              "Balanced. Head still.", "Clean hits. Short punch."),
+    ])
+
+SESSIONS = [PHASE1_A, PHASE1_B, FOCUS_FRONT, FIGURE_OF_EIGHT_LADDER, SIDE_TO_SIDE_LADDER]

@@ -219,6 +219,29 @@ Suggested use: once a week in place of one Phase 1 session until drops stop cost
 - **Match-intensity ghosting.** A new `match` pace, 6 to 8 rounds of 20 s, with shot-type calls ("Volley", "Boast", "Drop").
 - **Anchoring thoughts.** The session intro states the two current anchors. A short "match block" asks the player to say them aloud before each round.
 
+## Ladders
+
+Single-skill progressions from The Pursuit of Squash's YouTube challenge playlists, alongside the phases rather than in place of them. One file per ladder, one chapter per level, played on its own: playback stops at the end of the chapter. A level's chapter only says how to play it (setup, target and two tips), so it lasts as long as the speech. The intro chapter covers what applies to every level, such as counting from zero after a miss. Play your level, repeat it until you reach the target, log your best streak in Overtone, then move on to the next. Assumes a right-handed player.
+
+Built:
+
+| File | Levels | Notes |
+|---|---|---|
+| `ladder-figure-eight` | 1, 2, 3A–10 (15) | 1–2 front wall only, as in the warm-up; 3–10 front wall then side wall, ending on the full corner volley drill |
+| `ladder-side-to-side` | 1A–10 (15) | Side wall to side wall from mid-court: drives, then moving up and down the court, then volleys. Goggles |
+
+Planned, from the same channel's playlists:
+
+| File | Levels | Setup, said in each level that needs it |
+|---|---|---|
+| Forehand drive ladder | 1, 2, 4–10 | Tape 15 cm from the back wall; tape across the middle of the right service box, then down its middle; a shoe by the right wall behind the box; a water bottle in the back right corner |
+| Backhand drive ladder | 1, 2, 4–7 | Tape 15 cm from the back wall; tape across the middle of the left service box |
+| Volley ladder | Forehand and backhand 1, 3, 4, 5, then forehand and backhand volley drop 1 | Tape on the floor halfway, then three-quarters of the way, from the front wall to the short line |
+| Drop ladder | Forehand 1, 2, 4–7; backhand 1, 2, 4–8 | Tape halfway between the tin and the service line; a square at that height in each front corner |
+| Footwork and lob ladder | Split step 1–2, levels 3–7B | Tape for the lob landing zones behind each service box. Split step 2 (four 30 s intervals, 1 min rest) and level 5 (20 corners in two minutes) are timed, so their chapters give the timing |
+
+Left out: the technique breakdown videos (forehand drive 3, backhand drive 3 and 8, volley 2, drop 3), which need the picture; Butterfly (only level 1 is public, and it needs 25 figure eights first); Nick Shot Challenges (trick shots); Forehand Drive Challenges (a partner drill); side to side level 11 (premium, no details).
+
 ## Building a new phase
 
 1. In `drills.py`, write `PHASE2_A` and `PHASE2_B` dicts like `PHASE1_A`, reusing the helper functions (`drives`, `ghost`, `warmup` and the rest) where they fit, and append them to `SESSIONS`.
