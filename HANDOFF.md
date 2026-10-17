@@ -21,8 +21,6 @@ Each MP3 is rendered from `out/<id>.overtone.json`, the session as an Overtone s
 
 Phases 2 and 3 are designed in `PROGRAMME.md` but not built. The user moves on once they pass the Phase 1 mastery test.
 
-`out/fastfocus-00.mp3` is the earlier FastFocus-based routine. The user rejected it as a training plan. It's kept until the user says to delete it.
-
 ## Pipeline
 
 1. `drills.py` holds all the content.
