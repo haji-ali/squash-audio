@@ -88,7 +88,7 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 | # | Drill | Min | What |
 |---|---|---|---|
 | 1 | Movement warm-up | 4 | 2 min of called moves (jog, side-steps, lunges, hips, high knees, arm circles), then called split steps (easy pace, two steps) |
-| 2 | Side-to-side warm-up | 3 | In the middle, a step in front of the short line, facing the front wall. Around the service line, just off centre, so the ball comes back to the other side: FH, BH, FH, one bounce each |
+| 2 | Figure of eight warm-up | 3 | In the middle, a step in front of the short line, facing the front wall. Front wall only, aiming around the service line just across from centre, so the ball comes back to the other side: FH, BH, FH, one bounce each |
 | 3–4 | FH / BH straight drives | 3 + 3 | A racket length off the wall, at the back of the service box. Medium pace, just above the service line, first bounce in the box so it comes up to you. Prep and finish cues |
 | 5 | Ghosting: back corners | 3 | slow |
 | 6–7 | FH / BH feed and step in | 3 + 3 | Soft high feed lands near the short line. Get behind it, stomp, deep drive: a racket head above the service line, first bounce behind the box. Collect and repeat |
@@ -98,14 +98,14 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 | 13 | Ghosting: middle and back | 3 | medium |
 | 14–15 | FH / BH three-shot sequence | 2 + 2 | Soft (on the service line, bouncing in the box), medium (a racket head above, bouncing behind the box), hard (just under the service line, off the back wall). Same prep for all |
 | 16 | Ghosting: six points | 3 | fast |
-| 17 | Cool-down | 3 | Easy side-to-side, then called stretches: calves, hips, shoulders, each side |
+| 17 | Cool-down | 3 | Easy figure of eight, then called stretches: calves, hips, shoulders, each side |
 
 ### Session B: Volley & Front Court
 
 | # | Drill | Min | What |
 |---|---|---|---|
 | 1 | Movement warm-up | 4 | As in A |
-| 2 | Side-to-side warm-up | 3 | As in A |
+| 2 | Figure of eight warm-up | 3 | As in A |
 | 3–4 | FH / BH short volleys | 2 + 2 | One step in front of the short line, near the wall, aiming just above the service line so it returns at shoulder height |
 | 5 | Ghosting: volley positions | 3 | slow, middle left and right, each called open or closed. Open comes 0.5 s quicker |
 | 6 | Forehand to backhand volleys | 3 | Middle, about 2 m from the front wall, around the service line just off centre. First half with a bounce, second half on the volley |
@@ -147,7 +147,7 @@ Announcements in this session are longer than in Phase 1: each one explains what
 | # | Drill | Min | What |
 |---|---|---|---|
 | 1 | Movement warm-up | 4 | As in Phase 1 |
-| 2 | Side-to-side warm-up | 3 | As in Phase 1 |
+| 2 | Figure of eight warm-up | 3 | As in Phase 1 |
 | 3 | Ghosting: split step and go | 3 | slow, front corners. Early start, closed lunge, racket up |
 | 4–5 | FH / BH length by height | 3 + 3 | Behind the short line, aim a racket head above the service line |
 | 6–7 | FH / BH drop and lob | 3 + 3 | From the short line, drop, move in and lob before the second bounce. Straight, then cross-court halfway |
@@ -170,7 +170,7 @@ Suggested use: once a week in place of one Phase 1 session until drops stop cost
 | # | Drill | Min | Notes |
 |---|---|---|---|
 | 1 | Movement warm-up | 3 | Called split steps at slow pace (full distance) |
-| 2 | Side-to-side volleys | 3 | First minute with a bounce, then on the volley |
+| 2 | Figure of eight volleys | 3 | Front wall only. First minute with a bounce, then on the volley |
 | 3–4 | FH / BH channel drives | 3 + 3 | Harder. Land inside the door width (or a racket width of the wall) and keep it there |
 | 5 | Ghosting: back corners with a boast | 3 | medium. Shadow boast on the pip |
 | 6–7 | FH / BH feed and attack | 3 + 3 | Self-feed to mid court. Alternate a deep drive and a hard drive under the service line. Same set-up for both |
@@ -186,8 +186,8 @@ Suggested use: once a week in place of one Phase 1 session until drops stop cost
 | # | Drill | Min | Notes |
 |---|---|---|---|
 | 1 | Movement warm-up | 3 | |
-| 2 | Side-to-side volleys | 3 | |
-| 3 | Figure of eight with a bounce | 3 | Ball hits the front wall high, then the side wall, then bounces. Alternate sides |
+| 2 | Figure of eight volleys | 3 | |
+| 3 | Corner figure of eight with a bounce | 3 | Ball hits the front wall high, then the side wall, then bounces. Alternate sides |
 | 4 | Forehand to backhand volleys, stepping back | 3 | Start about 2 m from the front wall and drift back toward the short line |
 | 5 | Ghosting: volley positions | 3 | medium, plus a "middle" T-volley call if added |
 | 6–7 | FH / BH high volley to length | 2 + 2 | Hit a high straight ball to yourself, then volley it deep from the back of the box. This rehearses volleying off the serve |
@@ -203,7 +203,7 @@ Suggested use: once a week in place of one Phase 1 session until drops stop cost
 | Test | Target |
 |---|---|
 | Channel drives inside the door width | 10 in a row each side |
-| Figure of eight with a bounce | 30 in a row |
+| Corner figure of eight with a bounce | 30 in a row |
 | Solo boast and drive | 6 cycles without a break |
 | Cross-court drop rally | 10 drops |
 | Ghosting | Fast block with 20 s rest, form holding |
@@ -214,7 +214,7 @@ Suggested use: once a week in place of one Phase 1 session until drops stop cost
 - **Decision feeds.** New audio feature: the voice calls *"Easy"* or *"Pressure"* at random before each feed.
   - Easy: soft feed, step back, step in, and play a forcing shot (drive under the service line, drop, or cross court).
   - Pressure: deep or hard feed, then a safe straight drive to length.
-- **Figure of eight volleys.** Progress from a bounce, to volleys near the front wall, to stepping back.
+- **Corner figure of eight volleys.** Progress from a bounce, to volleys near the front wall, to stepping back.
 - **Boast, drive and drop circuit.** Solo continuous movement around the court.
 - **Match-intensity ghosting.** A new `match` pace, 6 to 8 rounds of 20 s, with shot-type calls ("Volley", "Boast", "Drop").
 - **Anchoring thoughts.** The session intro states the two current anchors. A short "match block" asks the player to say them aloud before each round.
@@ -222,8 +222,7 @@ Suggested use: once a week in place of one Phase 1 session until drops stop cost
 ## Building a new phase
 
 1. In `drills.py`, write `PHASE2_A` and `PHASE2_B` dicts like `PHASE1_A`, reusing the helper functions (`drives`, `ghost`, `warmup` and the rest) where they fit, and append them to `SESSIONS`.
-2. Run `.venv/bin/python build.py phase2-a phase2-b`. With no arguments, it builds every session.
-   Each session produces `out/<id>.mp3` with its `.srt` subtitles, `.txt` schedule, `.ffmeta` chapters and `.jpg` cover.
-3. The build aborts if cues overlap. Shorten the text or move the offsets.
+2. Run `.venv/bin/python build.py phase2-a phase2-b` to write `out/<id>.overtone.json` for each. With no arguments, it writes every session.
+3. Render each script to `out/<id>.mp3` with the Overtone repo's `scripts/render_script.swift` (the command is in `HANDOFF.md`). It warns when a cue had to move because the one before it ran long. Shorten the text or move the offsets until there are no warnings.
 
 `HANDOFF.md` covers the technical details of the audio pipeline.

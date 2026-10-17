@@ -7,7 +7,7 @@ Generate guided audio files for solo squash practice. Each file announces a dril
 - **Programme design, phases, mastery tests and the plan for unbuilt phases:** `PROGRAMME.md`. Read it first.
 - **The player's organised coaching notes:** `SQUASH_NOTES.md`. The drill cues come from these.
 - **Listening setup:** the user plays their own music from another app while this audio plays. So: no music bed, few words, silence is fine.
-- **App use:** the MP3s also feed an app the user is developing, which jumps to drills using ID3 chapters.
+- **App use:** the MP3s feed Overtone, the user's app, which jumps to drills using ID3 chapters.
 
 ## Current state
 
@@ -15,21 +15,31 @@ Phase 1 is built:
 - `out/phase1-a.mp3`: Drive & Move, 17 drills, about 52 min.
 - `out/phase1-b.mp3`: Volley & Front Court, 18 drills, about 51 min.
 
-Also built: `out/focus-front.mp3`, a one-off Drops, Lobs & Length session (15 drills, about 49 min). See `PROGRAMME.md`. Its announcements are deliberately longer than Phase 1's, explaining each drill's purpose.
+Also built: `out/focus-front.mp3`, a one-off Drops, Lobs & Length session (15 drills, about 50 min). See `PROGRAMME.md`. Its announcements are deliberately longer than Phase 1's, explaining each drill's purpose.
 
-All are CBR 64k with chapters and cover art. Next to each MP3 in `out/`:
-- `<id>.txt`: the announce and start time of each drill.
-- `<id>.ffmeta`: the chapter definitions.
-- `<id>.jpg`: the cover.
-- `<id>.srt`: subtitles of everything spoken, one cue per sentence. Every session build must produce one.
+Each MP3 is rendered from `out/<id>.overtone.json`, the session as an Overtone script.
 
 Phases 2 and 3 are designed in `PROGRAMME.md` but not built. The user moves on once they pass the Phase 1 mastery test.
 
 `out/fastfocus-00.mp3` is the earlier FastFocus-based routine. The user rejected it as a training plan. It's kept until the user says to delete it.
 
+## Pipeline
+
+1. `drills.py` holds all the content.
+2. `build.py` writes each session as an Overtone script, `out/<id>.overtone.json`. The format is `docs/SCRIPT-FORMAT.md` in the Overtone repo (`../overtone`).
+3. The Overtone repo's `scripts/render_script.swift` renders a script to an MP3: it speaks each line, lays the lines out by their timing, mixes in the tones and encodes CBR 64k with chapters and the cover.
+
+```
+.venv/bin/python build.py                 # all sessions
+.venv/bin/python build.py phase1-a        # one session
+swift ../overtone/scripts/render_script.swift out/phase1-a.overtone.json out/phase1-a.mp3 --edge-tts .venv/bin/edge-tts
+```
+
+The renderer reports every fixed line it had to move by more than 0.5 s, and every timed part a line ran past. Fix the text or offsets in `drills.py` until it reports no warnings. It caches spoken lines in `~/Library/Caches/OvertoneRender`, so only changed lines are spoken again.
+
 ## Speech engine
 
-- edge-tts, voice `en-GB-RyanNeural` at `+10%` rate.
+- edge-tts, Ryan (`en-GB-RyanNeural`) at `+10%`. The script asks for an `en-GB` male voice at `speechRate` 1.1, which the renderer maps to Ryan at `+10%`. `--engine apple --voice <name>` renders with a Mac voice instead.
 - Kokoro was tried and rejected (sounded worse). Perplexity has no TTS endpoint.
 - A music-bed version was dropped at the user's request. Don't bring it back.
 
@@ -41,53 +51,37 @@ Phases 2 and 3 are designed in `PROGRAMME.md` but not built. The user moves on o
   - `ten=True` adds a "Ten seconds." cue automatically.
   - Helpers: `warmup`, `ghost`, `drives`, `feed_and_step` and others build repeated drill shapes.
   - `ghost()` generates position calls with a fixed random seed from `PACES` (time after each call to the pip and back, per front, middle and back) and `ROUNDS` (work and rest).
-  - `CALL_SECS` holds each call's spoken length, since pips are timed from the end of the call. `STANCE_MIDDLE` calls name the stance ("Open, middle left."), and an open call's pip comes `OPEN_HURRY` seconds sooner.
-- **`build.py`:** synthesises speech, builds the timeline, mixes, and encodes. `build.py [session-id ...]` builds the named sessions, or all of them with no arguments.
-- **`cover.py`:** `make(subtitle, footer, path)` draws a 1400×1400 cover. The build calls it for every session. It uses macOS Arial, falling back to DejaVu on Linux.
-- **`cache/`:** edge-tts clips as `.mp3`, keyed by SHA1 of `voice|rate|text`, each with a `.json` of edge-tts sentence timings (start, end, text) used for the subtitles. A clip missing its `.json` is resynthesised. Changing the voice, rate or text resynthesises only what changed.
-- **Environment:** `.venv` (`python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`; `uv` isn't installed). Also needs system `ffmpeg` with libmp3lame.
-- Git repo. `.gitignore` excludes `.venv`, `cache`, `out` and `__pycache__`.
+  - `CALL_SECS` is the time allowed for each call when fitting calls into a round. `STANCE_MIDDLE` calls name the stance ("Open, middle left."), and an open call's pip comes `OPEN_HURRY` seconds sooner.
+- **`build.py`:** writes the Overtone scripts. `build.py [session-id ...]` writes the named sessions, or all of them with no arguments.
+- **`cover.py`:** `make(subtitle, footer, path)` draws a 1400×1400 cover, embedded in each script as its artwork. The footer's minutes are estimated from word counts. It uses macOS Arial, falling back to DejaVu on Linux.
+- **Environment:** `.venv` (`python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`; `uv` isn't installed). The renderer also needs system `ffmpeg` with libmp3lame, and the `.venv`'s edge-tts.
+- Git repo. `.gitignore` excludes `.venv`, `out` and `__pycache__`.
 
-Build:
+## Timeline
 
-```
-.venv/bin/python build.py              # all sessions
-.venv/bin/python build.py phase1-a     # one session
-```
-
-## How the build works
-
-- The timeline is in seconds, mixed with numpy at 24 kHz mono float32, then piped to ffmpeg as f32le.
-- edge-tts clips are trimmed on load. edge-tts pads about 0.25 s before the speech and 0.9 s after, which would make short calls late and longer than they sound. Sentence timings are shifted by the trimmed lead.
-- Subtitles: each spoken event's sentence timings are offset to its place on the timeline. Each cue ends no later than the next one starts, because edge-tts sentence durations can overlap the next sentence by about 50 ms.
-- Per drill:
-  - Stop tone at the previous block's end.
-  - Announcement 1 s later: one flowing line, "<name>, <duration>. <where to stand and what to hit>". Keep them flowing, without filler, round counts or anything the audio already signals. Always keep the setup details (where to stand, where the ball should land, foot position): they tell the user what a good rep looks like. Ghosting announcements end with "swing on the beep, and get back to the T for the next call". The user can add rest between chapters in their app.
-  - Start time = announcement end + 3.5 s, with a minimum transition of 8 s (6 s for the first drill).
-  - Three tick beeps at -3, -2 and -1 s, then the start tone.
-  - Cues at their offsets.
-- Tones:
+- Intro chapter: the session intro at 0.5 s.
+- Per drill, one chapter of four parts:
+  - The announcement, 1 s after the previous stop tone starts (1 s after the intro for the first drill): one flowing line, "<name>, <duration>. <where to stand and what to hit>". Keep them flowing, without filler, round counts or anything the audio already signals. Always keep the setup details (where to stand, where the ball should land, foot position): they tell the user what a good rep looks like. Ghosting announcements end with "swing on the beep, and get back to the T for the next call". The user can add rest between chapters in their app.
+  - A 3.5 s countdown, three ticks at -3, -2 and -1 s. The drill starts at least 8 s after the previous stop tone starts (6 s after the intro).
+  - The drill: the start tone, then the cues at their offsets. "Ten seconds." uses `beforeEnd`. Each arrival pip follows its call (`after`) by the pace, timed from the end of the call as spoken, and the next call or rest follows the pip the same way.
+  - The stop tone.
+- Finish chapter: the outro 2 s after the last stop tone starts, then 1 s of silence.
+- `minimumGap` is 0.8 s: a fixed line that would overlap the one before it starts 0.8 s after it ends.
+- Tones (`SOUNDS` in `build.py`, volumes relative to the speech's peaks):
   - Tick: 880 Hz.
   - Start: rising 988 → 1318 Hz.
   - Stop: double 440 Hz.
   - Ghosting arrival pip: 1568 Hz, 90 ms.
-- The build aborts with a list if cues overlap: 0.8 s between spoken cues, 0.3 s between a cue and a tone. It also aborts if a cue runs past the end of a drill.
-- Speech is scaled to a fixed RMS (`SPEECH_RMS = 0.12`). Final limiter: `alimiter=limit=0.9:level=0`.
 
 ### Gotchas already solved (don't undo)
 
-- `alimiter` needs `level=0`, otherwise it auto-levels back to 0 dBFS.
-- Feed ffmpeg float32, not int16. Clipping before the limiter was a bug.
-- Keep MP3 output CBR. VBR made chapter seeking imprecise, because players estimate the byte offset from the time.
 - The voice mispronounces "row" (as in a fight) and reduces "four" to "for" mid-sentence. Keep both out of spoken text: "without a break" or "back to back" instead of "in a row", and `say_secs=False` on the four-minute warm-up so its length isn't announced.
 - edge-tts failing with `403, message='Invalid response status'` means the installed edge-tts is out of date: `.venv/bin/pip install --upgrade edge-tts`.
-- ffmpeg writes ID3v2.3 CHAP/CTOC frames from `-map_metadata 2 -map_chapters 2`. The cover is embedded with `-map 1:v -c:v copy -id3v2_version 3`.
 
 ## Chapters
 
 - Chapter list: `Intro` at 0, then `N. <drill name> (<mins> min)` for each drill, then `Finish`.
-- Each drill chapter starts 0.5 s (`LEAD_IN`) before the spoken announcement, so a slightly late seek doesn't clip the first word.
-- Not yet tested in the user's app.
+- A drill chapter starts as the previous stop tone ends, 0.35 s before the announcement, so a slightly late seek doesn't clip the first word.
 
 ## Open items
 

@@ -1,6 +1,5 @@
 import random
 
-VOICE = "en-GB-RyanNeural"
 RATE = "+10%"
 
 # Tone markers usable in place of cue text.
@@ -13,7 +12,7 @@ MIDDLE = ALL[2:4]
 BACK = ALL[4:6]
 STANCE_MIDDLE = tuple(f"{s}, {p.lower()}." for p in MIDDLE for s in ("Open", "Closed"))
 
-# Spoken length of each position call; build.py aborts if a call clip runs longer.
+# Time allowed for each position call when fitting calls into a round.
 CALL_SECS = {**{p: 0.8 for p in ALL}, **{p: 1.45 for p in STANCE_MIDDLE}}
 
 # Seconds from the end of a call to the arrival beep, then from the beep to the next call.
@@ -87,18 +86,18 @@ def ghost(name, pace, positions, intro, tips, seed):
     return d(name, GHOST_SECS, intro, *cues, ten=False)
 
 
-SIDE_TO_SIDE = d(
-    "Side-to-side warm-up", 180,
-    "In the middle, a step in front of the short line, facing the front wall. Hit around the service line, "
-    "just off centre, so the ball comes back to your other side: forehand, backhand, forehand, "
-    "letting each ball bounce once in front of you.",
+FIGURE_OF_EIGHT = d(
+    "Figure of eight warm-up", 180,
+    "In the middle, a step in front of the short line, facing the front wall. Front wall only: aim around "
+    "the service line, just across from centre, so the ball comes back to your other side: forehand, "
+    "backhand, forehand, letting each ball bounce once in front of you.",
     (15, "Easy. This warms the ball."),
     (75, "Racket up between every shot."),
-    (140, "Finish each swing toward the front wall."))
+    (140, "Follow through forward, not across your body."))
 
 COOL_DOWN = d(
     "Cool-down", 180,
-    "Easy side-to-side, then the stretches as I call them.",
+    "Easy figure of eight, then the stretches as I call them.",
     (5, "Nice and easy. Breathe out."),
     (45, "Ball down. Calf stretch, left leg back."),
     (67, "Switch legs."),
@@ -235,7 +234,7 @@ PHASE1_A = dict(
     outro="That's session A. Well done.",
     drills=[
         warmup(seed=11),
-        SIDE_TO_SIDE,
+        FIGURE_OF_EIGHT,
         drives("forehand", "Racket up as the ball leaves the front wall.", "Finish high, pointing at the front wall."),
         drives("backhand", "Racket up early. No wrist twist.", "Use the space. Don't crowd the ball."),
         ghost("Ghosting: back corners", "slow", BACK,
@@ -270,7 +269,7 @@ PHASE1_B = dict(
     outro="That's session B. Well done.",
     drills=[
         warmup(seed=21),
-        SIDE_TO_SIDE,
+        FIGURE_OF_EIGHT,
         short_volleys("forehand", "Racket high. Punch, don't swing.", "Shoulders to the side wall."),
         short_volleys("backhand", "Racket high. Punch, then extend up.", "Firm wrist."),
         ghost("Ghosting: volley positions", "slow", STANCE_MIDDLE,
@@ -375,7 +374,7 @@ FOCUS_FRONT = dict(
     outro="That's the focus session. Well done.",
     drills=[
         warmup(seed=31),
-        SIDE_TO_SIDE,
+        FIGURE_OF_EIGHT,
         ghost("Ghosting: split step and go", "slow", FRONT,
               "Slow pace, front corners. Reaching drops is about starting early, not running faster. "
               "Split step as each call starts, push off hard, and lunge closed with the racket already up. "

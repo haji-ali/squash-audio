@@ -1,4 +1,2 @@
 edge-tts
-numpy
 pillow
-mutagen
