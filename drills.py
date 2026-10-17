@@ -206,11 +206,13 @@ def volley_heights(side, last_tip):
 def drops(side):
     return d(
         f"{side.capitalize()} drops", 120,
-        "In front of the short line, close to the side wall. Feed softly, then drop, let it bounce, "
-        "and drop again, just above the tin. Phase two target: five drops in one rally, without a break, each "
-        "short enough to bounce twice before the short line.",
+        "Two halves. First, counter-drops: two metres from the front wall, close to the side wall, soft drops "
+        "just above the tin, kept going. Then feed from just behind the short line, play one drop, and let it "
+        "go. Phase two target: six out of ten with the second bounce before the short line, misses in between "
+        "allowed.",
         (15, "Open face. Soft hands."),
-        (60, "Step in with your front foot. Stay low."))
+        (60, "Now feed, drop, and let it go. Score ten."),
+        (90, "Step in with your front foot. Stay low."))
 
 
 def length_check(side):

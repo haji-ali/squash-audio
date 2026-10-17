@@ -112,7 +112,7 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 | 7–8 | FH / BH box volleys | 2 + 2 | Back of the service box, medium pace, a racket head above the service line, ball returns at shoulder height. Racket above the ball |
 | 9–10 | FH / BH volley heights | 2 + 2 | Step in front of the short line, near the wall: straight volleys just above the service line, on it, just above the tin, then let it bounce and restart |
 | 11 | Ghosting: front corners with drops | 3 | medium, shadow drops |
-| 12–13 | FH / BH drops | 2 + 2 | In front of the short line: drop, bounce, drop, just above the tin |
+| 12–13 | FH / BH drops | 2 + 2 | First minute: continuous counter-drops about 2 m from the front wall, just above the tin. Second minute: feed from behind the short line, drop and let it go, scored out of ten on the second bounce landing before the short line |
 | 14 | Serve then T | 3 | Serve, move to the T and split step as if volleying the return. Switch boxes halfway |
 | 15–16 | FH / BH length check | 2 + 2 | A racket head above the service line, first bounce behind the box. Score sets of ten by how many bounce first behind the short line; softer reset shots allowed and not counted |
 | 17 | Ghosting: six points | 3 | fast |
@@ -130,7 +130,7 @@ The audio states each target in the drill that tests it ("Phase two target: ..."
 | Feed and step in, second bounce at the back wall | 7 of 10 each side, misses in between allowed |
 | Forehand to backhand volleys, no bounce | 20 in one unbroken rally |
 | Box volleys | 10 in one unbroken rally, each side |
-| Drops, bouncing twice before the short line | 5 in one unbroken rally, each side |
+| Drops: feed, drop and let it go, second bounce before the short line | 6 of 10 each side, misses in between allowed |
 | Ghosting | Every rep at the pip, full swish, split step on each call, form holds in the fast block |
 
 Keep a short log: date, session, the numbers above, and one line on what broke down. That line decides the Phase 2 details.
