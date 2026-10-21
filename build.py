@@ -147,13 +147,13 @@ def chapters(session):
     ]
 
 
-def script(session):
+def script(session, with_artwork=True):
     return {
         "format": "overtone-script",
         "version": 1,
         "title": session["title"],
         **({"description": session["description"]} if "description" in session else {}),
-        "artwork": artwork(session),
+        **({"artwork": artwork(session)} if with_artwork else {}),
         "voice": {"language": "en-GB", "gender": "male"},
         "speechRate": 1 + int(RATE.strip("%+")) / 100,
         "sounds": SOUNDS,
@@ -164,14 +164,16 @@ def script(session):
 
 
 def main():
-    wanted = sys.argv[1:]
+    args = sys.argv[1:]
+    with_artwork = "--no-artwork" not in args
+    wanted = [a for a in args if a != "--no-artwork"]
     sessions = [s for s in SESSIONS if not wanted or s["id"] in wanted]
     if not sessions:
         sys.exit(f"unknown session; choose from: {', '.join(s['id'] for s in SESSIONS)}")
     OUT.mkdir(exist_ok=True)
     for session in sessions:
         path = OUT / f"{session['id']}.overtone.json"
-        path.write_text(json.dumps(script(session), indent=1, ensure_ascii=False) + "\n")
+        path.write_text(json.dumps(script(session, with_artwork), indent=1, ensure_ascii=False) + "\n")
         print(f"wrote {path}")
 
 
