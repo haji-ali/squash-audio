@@ -106,11 +106,11 @@ To tune these, edit `PACES`, `CALL_SECS` and `ROUNDS` in `drills.py`. Later phas
 |---|---|---|---|
 | 1 | Movement warm-up | 4 | As in A |
 | 2 | Figure of eight warm-up | 3 | As in A |
-| 3–4 | FH / BH short volleys | 2 + 2 | One step in front of the short line, near the wall, aiming just above the service line so it returns at shoulder height |
+| 3–4 | FH / BH short volleys | 2 + 2 | Within 2 m of the front wall, a metre off the side wall, soft volleys above the service line (volley ladder level 1) |
 | 5 | Ghosting: volley positions | 3 | slow, middle left and right, each called open or closed. Open comes 0.5 s quicker |
 | 6 | Forehand to backhand volleys | 3 | Middle, about 2 m from the front wall, around the service line just off centre. First half with a bounce, second half on the volley |
-| 7–8 | FH / BH box volleys | 2 + 2 | Back of the service box, medium pace, a racket head above the service line, ball returns at shoulder height. Racket above the ball |
-| 9–10 | FH / BH volley heights | 2 + 2 | Step in front of the short line, near the wall: straight volleys just above the service line, on it, just above the tin, then let it bounce and restart |
+| 7–8 | FH / BH ladder volleys | 2 + 2 | Behind the tape for the current volley ladder level (halfway, three-quarters, or the short line), a metre off the side wall. Racket above the ball |
+| 9–10 | FH / BH volley heights | 2 + 2 | Halfway to the short line, a metre off the side wall: straight volleys just above the service line, on it, just above the tin, then let it bounce and restart |
 | 11 | Ghosting: front corners with drops | 3 | medium, shadow drops |
 | 12–13 | FH / BH drops | 2 + 2 | First minute: continuous counter-drops about 2 m from the front wall, just above the tin. Second minute: feed from behind the short line, drop and let it go, scored out of ten on the second bounce landing before the short line |
 | 14 | Serve then T | 3 | Serve, move to the T and split step as if volleying the return. Switch boxes halfway |
@@ -129,7 +129,7 @@ The audio states each target in the drill that tests it ("Phase two target: ..."
 | Length check: drives bouncing first behind the short line, per set of ten, resets allowed | 8 of 10 each side, misses in between allowed |
 | Feed and step in, second bounce at the back wall | 7 of 10 each side, misses in between allowed |
 | Forehand to backhand volleys, no bounce | 20 in one unbroken rally |
-| Box volleys | 10 in one unbroken rally, each side |
+| Ladder volleys from the three-quarter line (volley ladder level 4) | 20 in one unbroken rally, each side |
 | Drops: feed, drop and let it go, second bounce before the short line | 6 of 10 each side, misses in between allowed |
 | Ghosting | Every rep at the pip, full swish, split step on each call, form holds in the fast block |
 
@@ -206,6 +206,7 @@ Suggested use: once a week in place of one Phase 1 session until drops stop cost
 | Corner figure of eight with a bounce | 30 in a row |
 | Solo boast and drive | 6 cycles without a break |
 | Cross-court drop rally | 10 drops |
+| Volleys from behind the short line (volley ladder level 5) | 15 in one unbroken rally, each side |
 | Ghosting | Fast block with 20 s rest, form holding |
 
 ## Phase 3: Apply (outline)
@@ -229,6 +230,7 @@ Built:
 |---|---|---|
 | `ladder-figure-eight` | 1, 2, 3A–10 (15) | 1–2 front wall only, as in the warm-up; 3–10 front wall then side wall, ending on the full corner volley drill |
 | `ladder-side-to-side` | 1A–10 (15) | Side wall to side wall from mid-court: drives, then moving up and down the court, then volleys. Goggles |
+| `ladder-volley` | 1A–6B (10) | Forehand and backhand volley levels 1, 3, 4 and 5, each further from the front wall: within 2 m (50), tape halfway to the short line (25), tape three-quarters of the way (20), behind the short line (15). Then forehand and backhand volley drop level 1 as 6A and 6B (20). Level 2 is a technique video. A metre off the side wall, which the source doesn't specify |
 
 Planned, from the same channel's playlists:
 
@@ -236,7 +238,6 @@ Planned, from the same channel's playlists:
 |---|---|---|
 | Forehand drive ladder | 1, 2, 4–10 | Tape 15 cm from the back wall; tape across the middle of the right service box, then down its middle; a shoe by the right wall behind the box; a water bottle in the back right corner |
 | Backhand drive ladder | 1, 2, 4–7 | Tape 15 cm from the back wall; tape across the middle of the left service box |
-| Volley ladder | Forehand and backhand 1, 3, 4, 5, then forehand and backhand volley drop 1 | Tape on the floor halfway, then three-quarters of the way, from the front wall to the short line |
 | Drop ladder | Forehand 1, 2, 4–7; backhand 1, 2, 4–8 | Tape halfway between the tin and the service line; a square at that height in each front corner |
 | Footwork and lob ladder | Split step 1–2, levels 3–7B | Tape for the lob landing zones behind each service box. Split step 2 (four 30 s intervals, 1 min rest) and level 5 (20 corners in two minutes) are timed, so their chapters give the timing |
 

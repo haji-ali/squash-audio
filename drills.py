@@ -174,19 +174,22 @@ def three_shot(side):
 def short_volleys(side, first, second):
     return d(
         f"{side.capitalize()} short volleys", 120,
-        "A step in front of the short line, close to the side wall, volleying straight just above "
-        "the service line, so it comes back to you at shoulder height without bouncing. "
-        "Let it bounce if you lose it.",
+        f"Within two metres of the front wall, on your {side} side, a metre or so off the side wall. Soft "
+        "volleys above the service line, hitting each one again before it bounces. Let it bounce if you "
+        "lose it.",
         (15, first),
         (60, second))
 
 
-def box_volleys(side, first, second):
+def ladder_volleys(side, first, second):
+    # Played from the line of the player's current volley ladder level, so the session moves back
+    # with the ladder.
     return d(
-        f"{side.capitalize()} box volleys", 120,
-        "From the back of the service box, medium pace, a racket head above the service line, so it comes "
-        "back at shoulder height without bouncing. Let it bounce if you lose it. "
-        "Phase two target: ten volleys in one rally, without a break.",
+        f"{side.capitalize()} ladder volleys", 120,
+        "Behind the tape for your volley ladder level: halfway to the short line, three-quarters of the way, "
+        "or the short line itself. A metre or so off the side wall, volleying above the service line without "
+        "a bounce. Let it bounce if you lose it. Phase two target: twenty without a break from the "
+        "three-quarter line.",
         (15, first),
         (60, second))
 
@@ -194,9 +197,9 @@ def box_volleys(side, first, second):
 def volley_heights(side, last_tip):
     return d(
         f"{side.capitalize()} volley heights", 120,
-        "A step in front of the short line, close to the side wall. Three straight volleys in turn: "
-        "just above the service line, on it, then just above the tin. After the low one, let it bounce and "
-        "start again.",
+        "Halfway between the front wall and the short line, a metre off the side wall. Three straight "
+        "volleys in turn: just above the service line, on it, then just above the tin. After the low one, "
+        "let it bounce and start again.",
         (15, "Above the line. On the line. Above the tin."),
         (55, "Same punch every time. Only the target changes."),
         (90, last_tip))
@@ -284,8 +287,8 @@ PHASE1_B = dict(
           (15, "Short swings. Racket up early."),
           (90, "Now on the volley. Target: twenty without a break. Lose it? Restart with a bounce, and count from zero."),
           (140, "Keep the rhythm. Watch the ball.")),
-        box_volleys("forehand", "Racket above the ball. Come down on it.", "Follow through to the front wall."),
-        box_volleys("backhand", "Racket high. Punch.", "Shoulders to the side wall."),
+        ladder_volleys("forehand", "Racket above the ball. Come down on it.", "Follow through to the front wall."),
+        ladder_volleys("backhand", "Racket high. Punch.", "Shoulders to the side wall."),
         volley_heights("forehand", "Racket above the ball. Come down on it."),
         volley_heights("backhand", "Racket high. Firm wrist."),
         ghost("Ghosting: front corners with drops", "medium", FRONT,
@@ -611,4 +614,79 @@ SIDE_TO_SIDE_LADDER = dict(
               "Balanced. Head still.", "Clean hits. Short punch."),
     ])
 
-SESSIONS = [PHASE1_A, PHASE1_B, FOCUS_FRONT, FIGURE_OF_EIGHT_LADDER, SIDE_TO_SIDE_LADDER]
+# The Pursuit of Squash, Forehand and Backhand Volley Solo Challenges levels 1 and 3 to 5 (level 2 is a
+# technique video), then level 1 of the Volley Drop Solo Challenges as 6A and 6B. Each level moves the
+# player further from the front wall.
+VOLLEY_LADDER = dict(
+    id="ladder-volley",
+    title="Squash solo - Ladder: Volleys",
+    subtitle="Ladder  ·  Volleys",
+    footer="10 levels",
+    description="The volley in ten levels, from volleys close to the front wall to volleys from the short "
+                "line, then the volley drop. Based on The Pursuit of Squash's Forehand and Backhand Volley "
+                "Solo Challenges: https://www.youtube.com/playlist?list=PLKXPpa_wrA757hLPl4UNMxjoyWyUItJVQ "
+                "and https://www.youtube.com/playlist?list=PLKXPpa_wrA76czYT1fnue2VDqK3gG68iC, and their "
+                "Volley Drop Solo Challenges.",
+    intro=f"Volley ladder: forehand and backhand, a step further from the front wall each level. {LADDER_INTRO}",
+    levels=[
+        level("1A", "Forehand, close to the front wall",
+              "Stand no more than two metres from the front wall, on your forehand side, a metre or so off "
+              "the side wall. Volley above the service line, and hit it again before it touches the floor. "
+              "A blue dot ball helps.",
+              "Target: fifty without a break.",
+              "Short punch. Racket up between hits.", "Soft. Keep it above the service line."),
+        level("1B", "Backhand, close to the front wall",
+              "Stand no more than two metres from the front wall, on your backhand side, a metre or so off "
+              "the side wall. Volley above the service line, and hit it again before it touches the floor. "
+              "A blue dot ball helps.",
+              "Target: fifty without a break.",
+              "Racket high. Punch, then extend up.", "Firm wrist."),
+        level("3A", "Forehand, from halfway",
+              "Tape on the floor halfway between the front wall and the short line. Stand behind it on your "
+              "forehand side, a metre or so off the side wall. Serve onto the front wall, then volley the "
+              "ball on your forehand, again and again without a bounce. A blue, red or single yellow dot "
+              "ball.",
+              "Target: twenty-five without a break.",
+              "Racket above the ball. Come down on it.", "Shoulders to the side wall."),
+        level("3B", "Backhand, from halfway",
+              "Tape on the floor halfway between the front wall and the short line. Stand behind it on your "
+              "backhand side, a metre or so off the side wall. Serve onto the front wall, then volley the "
+              "ball on your backhand, again and again without a bounce. A blue, red or single yellow dot "
+              "ball.",
+              "Target: twenty-five without a break.",
+              "Racket high before the ball arrives.", "Shoulders to the side wall."),
+        level("4A", "Forehand, from three-quarters",
+              "Move the tape three-quarters of the way from the front wall to the short line. Stand behind "
+              "it on your forehand side, serve onto the front wall, and keep volleying on your forehand.",
+              "Target: twenty without a break.",
+              "More distance, same punch.", "Follow through to the front wall."),
+        level("4B", "Backhand, from three-quarters",
+              "Tape three-quarters of the way from the front wall to the short line. Stand behind it on your "
+              "backhand side, serve onto the front wall, and keep volleying on your backhand.",
+              "Target: twenty without a break.",
+              "More distance, same punch.", "Firm wrist. Extend up after contact."),
+        level("5A", "Forehand, from the short line",
+              "Stand behind the short line on your forehand side. Serve onto the front wall, and keep "
+              "volleying on your forehand. This is where you volley in a match.",
+              "Target: fifteen without a break.",
+              "Firm enough to reach you, soft enough to control.", "Racket up between every volley."),
+        level("5B", "Backhand, from the short line",
+              "Stand behind the short line on your backhand side. Serve onto the front wall, and keep "
+              "volleying on your backhand. This is where you volley the serve.",
+              "Target: fifteen without a break.",
+              "Firm enough to reach you, soft enough to control.", "Racket up between every volley."),
+        level("6A", "Forehand volley drop",
+              "Halfway between the front wall and the short line. Toss the ball up high to yourself, then "
+              "volley it short into the front right corner. Don't worry about technique yet: this is for a "
+              "feel of taking the ball in short.",
+              "Target: twenty drops without a break, none in the tin.",
+              "Soft hands. Open face.", "Want it harder? Make it bounce before the side wall."),
+        level("6B", "Backhand volley drop",
+              "Halfway between the front wall and the short line. Toss the ball up high to yourself, then "
+              "volley it short into the front left corner. Don't worry about technique yet: this is for a "
+              "feel of taking the ball in short.",
+              "Target: twenty drops without a break, none in the tin.",
+              "Soft hands. Open face.", "Want it harder? Make it bounce before the side wall."),
+    ])
+
+SESSIONS = [PHASE1_A, PHASE1_B, FOCUS_FRONT, FIGURE_OF_EIGHT_LADDER, SIDE_TO_SIDE_LADDER, VOLLEY_LADDER]

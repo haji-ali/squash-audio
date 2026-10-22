@@ -17,7 +17,7 @@ Phase 1 is built:
 
 Also built: `out/focus-front.mp3`, a one-off Drops, Lobs & Length session (15 drills, about 50 min). See `PROGRAMME.md`. Its announcements are deliberately longer than Phase 1's, explaining each drill's purpose.
 
-Two ladders are built, `out/ladder-figure-eight.mp3` and `out/ladder-side-to-side.mp3`: single-skill progressions with one short chapter per level, played one level at a time (see "Ladders" in `PROGRAMME.md`, which also plans five more).
+Three ladders are built, `out/ladder-figure-eight.mp3`, `out/ladder-side-to-side.mp3` and `out/ladder-volley.mp3`: single-skill progressions with one short chapter per level, played one level at a time (see "Ladders" in `PROGRAMME.md`, which also plans four more). Session B's ladder volleys are played from the line of the player's current volley ladder level.
 
 Each MP3 is rendered from `out/<id>.overtone.json`, the session as an Overtone script.
 
