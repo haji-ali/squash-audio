@@ -232,6 +232,9 @@ PHASE1_A = dict(
     id="phase1-a",
     title="Squash solo - Phase 1 A: Drive & Move",
     subtitle="Phase 1  ·  A  ·  Drive & Move",
+    description="Solo practice for one court, about 50 minutes: straight drives, feeding and stepping in, "
+                "drives from the front court and short sequences, between rounds of ghosting to the corners. "
+                "Each drill has a target; hit every target in two sessions back to back to move up.",
     intro="Phase one, session A: drive and move. Drills with a phase two target say so. "
           "Hit every target in two sessions back to back to move up.",
     outro="That's session A. Well done.",
@@ -267,6 +270,9 @@ PHASE1_B = dict(
     id="phase1-b",
     title="Squash solo - Phase 1 B: Volley & Front Court",
     subtitle="Phase 1  ·  B  ·  Volley & Front Court",
+    description="Solo practice for one court, about 50 minutes: short and ladder volleys, volley heights, "
+                "drops, the serve and length, between rounds of ghosting. Each drill has a target; hit every "
+                "target in two sessions back to back to move up.",
     intro="Phase one, session B: volleys and the front court. Drills with a phase two target say so. "
           "Hit every target in two sessions back to back to move up.",
     outro="That's session B. Well done.",
@@ -372,6 +378,9 @@ FOCUS_FRONT = dict(
     id="focus-front",
     title="Squash solo - Focus: Drops, Lobs & Length",
     subtitle="Focus  ·  Drops, Lobs & Length",
+    description="Solo practice for one court, about 50 minutes, on the front of the court and the back: "
+                "length by height, drops and lobs, boasts, and length when tired, between rounds of "
+                "ghosting to reach the front early.",
     intro="Focus session: drops, lobs and length. Start early to reach the drop, lob to buy time, "
           "and aim higher for length.",
     outro="That's the focus session. Well done.",

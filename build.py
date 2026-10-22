@@ -155,6 +155,7 @@ def script(session, with_artwork=True):
         **({"description": session["description"]} if "description" in session else {}),
         **({"artwork": artwork(session)} if with_artwork else {}),
         "voice": {"language": "en-GB", "gender": "male"},
+        "workout": "squash",
         "speechRate": 1 + int(RATE.strip("%+")) / 100,
         "sounds": SOUNDS,
         # Spoken cues stay 0.8 s apart.
